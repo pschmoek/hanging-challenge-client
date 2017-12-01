@@ -3,9 +3,24 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { State } from './state';
 import { User } from '../user/user';
+import { HangActivitySettings } from './hang-activity-settings';
+import { Hang } from '../hang/hang';
+
+export const defaultSettings: HangActivitySettings = {
+  accumulatedDailyTarget: 600,
+  autoStart: true,
+  countdown: 5,
+  endTimeBuffer: 3,
+  maxPerRepetition: 60,
+  pauseTime: 60
+};
 
 export const defaultState: State = {
-  facebookToken: null
+  facebookToken: null,
+  hangActivitySettings: defaultSettings,
+  hangs: [],
+  todaysHangs: [],
+  isLoadingHangs: false
 };
 
 @Injectable()
@@ -32,6 +47,23 @@ export class Store {
     this.stateSource.next({
       ...this.stateSource.getValue(),
       userName: user.userName
+    });
+  }
+
+  setIsLoadingHangs(isLoading: boolean) {
+    this.stateSource.next({
+      ...this.stateSource.getValue(),
+      isLoadingHangs: isLoading
+    });
+  }
+
+  setHangs(hangs: Hang[]) {
+    const today = new Date().toDateString();
+    const todaysHangs = hangs.filter(h => new Date(h.start).toDateString() === today);
+    this.stateSource.next({
+      ...this.stateSource.getValue(),
+      hangs,
+      todaysHangs
     });
   }
 

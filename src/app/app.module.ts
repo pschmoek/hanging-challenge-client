@@ -11,6 +11,8 @@ import { SplashComponent } from './splash/splash.component';
 import { Store } from './store/store';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
+import { HangService } from './hang/hang.service';
+import { HangActivityComponent } from './hang/hang-activity.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -22,14 +24,15 @@ export const routes: Routes = [
     AppComponent,
     FacebookLoginComponent,
     DashboardComponent,
-    SplashComponent
+    SplashComponent,
+    HangActivityComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule
   ],
-  providers: [Store, FacebookLoginService, AuthService, UserService],
+  providers: [Store, FacebookLoginService, AuthService, UserService, HangService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,6 +7,7 @@ import { FacebookLoginService } from './facebook-login/facebook-login.service';
 import { Store } from './store/store';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
+import { HangService } from './hang/hang.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
     private facebookLoginService: FacebookLoginService,
     private authService: AuthService,
     private userService: UserService,
+    private hangService: HangService,
     private store: Store
   ) {
     this.facebookLoginService.init();
@@ -48,6 +50,7 @@ export class AppComponent implements OnInit {
     ).subscribe((token: string) => {
       this.authService.obtainJwt(token);
       this.userService.loadUser();
+      this.hangService.initHangs();
     });
   }
 
