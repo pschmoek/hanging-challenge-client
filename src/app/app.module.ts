@@ -16,6 +16,10 @@ import { HangActivityComponent } from './hang/hang-activity.component';
 import { TrainComponent } from './train/train.component';
 import { AnalyzeComponent } from './analyze/analyze.component';
 import { HeaderToolbarComponent } from './header-toolbar/header-toolbar.component';
+import { ReadyToStartComponent } from './train/ready-to-start/ready-to-start.component';
+import { CountDownComponent } from './train/count-down/count-down.component';
+import { RunningComponent } from './train/running/running.component';
+import { RestingComponent } from './train/resting/resting.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -33,7 +37,11 @@ export const routes: Routes = [
     HangActivityComponent,
     TrainComponent,
     AnalyzeComponent,
-    HeaderToolbarComponent
+    HeaderToolbarComponent,
+    ReadyToStartComponent,
+    CountDownComponent,
+    RunningComponent,
+    RestingComponent
   ],
   imports: [
     BrowserModule,
