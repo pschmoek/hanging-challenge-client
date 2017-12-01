@@ -1,11 +1,8 @@
-<div class="header-row" *ngIf="userName$ | async">
-  <span class=title>Hanging Challenge</span>
-  <span class=grow></span>
-  <span class=user-info>
-    <span>Logged in as</span> 
-    <strong>{{ userName$ | async }}</strong>
-  </span>
-</div>
+<app-header-toolbar
+  *ngIf="userName$ | async"
+  [userName]="userName$ | async"
+  (titleClick)="onTitleClick()">
+</app-header-toolbar>
 
 <router-outlet *ngIf="showApp$ | async"></router-outlet>
 

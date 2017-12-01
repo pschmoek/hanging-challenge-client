@@ -13,9 +13,14 @@ import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
 import { HangService } from './hang/hang.service';
 import { HangActivityComponent } from './hang/hang-activity.component';
+import { TrainComponent } from './train/train.component';
+import { AnalyzeComponent } from './analyze/analyze.component';
+import { HeaderToolbarComponent } from './header-toolbar/header-toolbar.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'analyze', component: AnalyzeComponent },
+  { path: 'train', component: TrainComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];
 
@@ -25,7 +30,10 @@ export const routes: Routes = [
     FacebookLoginComponent,
     DashboardComponent,
     SplashComponent,
-    HangActivityComponent
+    HangActivityComponent,
+    TrainComponent,
+    AnalyzeComponent,
+    HeaderToolbarComponent
   ],
   imports: [
     BrowserModule,

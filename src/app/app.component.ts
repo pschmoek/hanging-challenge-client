@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { first, filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { FacebookLoginService } from './facebook-login/facebook-login.service';
 import { Store } from './store/store';
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private hangService: HangService,
+    private router: Router,
     private store: Store
   ) {
     this.facebookLoginService.init();
@@ -53,6 +55,10 @@ export class AppComponent implements OnInit {
       this.userService.loadUser();
       this.hangService.initHangs();
     });
+  }
+
+  onTitleClick() {
+    this.router.navigate(['dashboard']);
   }
 
 }
