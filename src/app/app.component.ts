@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { first } from 'rxjs/operators';
+import { first, filter } from 'rxjs/operators';
 
 import { FacebookLoginService } from './facebook-login/facebook-login.service';
 import { Store } from './store/store';
@@ -37,7 +37,8 @@ export class AppComponent implements OnInit {
     );
     this.store.state$.pipe(
       map(s => s.facebookToken),
-      first(t => !!t)
+      filter(token => token != null),
+      first()
     ).subscribe(token => {
       this.authService.obtainJwt(token);
     });

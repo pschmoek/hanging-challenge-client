@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { State } from './state';
 
-export const defaultState: State = { };
+export const defaultState: State = {
+  facebookToken: null
+};
 
 @Injectable()
 export class Store {
@@ -18,7 +20,7 @@ export class Store {
     });
   }
 
-  setJwt(token: string|null) {
+  setJwt(token: string) {
     this.stateSource.next({
       ...this.stateSource.getValue(),
       jwt: token

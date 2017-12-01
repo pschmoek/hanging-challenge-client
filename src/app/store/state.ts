@@ -1,5 +1,5 @@
 export interface State {
-  facebookToken?: string;
+  facebookToken: string|null;
   jwt?: string;
   userName?: string;
 }
