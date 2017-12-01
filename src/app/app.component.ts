@@ -1,27 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-
-import { BackendLoginService } from './login/backend-login.service';
-import { FacebookLoginService } from './login/facebook-login.service';
-import { Store } from './store/store';
 import { Observable } from 'rxjs/Observable';
+import { first } from 'rxjs/operators';
+
+import { FacebookLoginService } from './facebook-login/facebook-login.service';
+import { Store } from './store/store';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  initialized$: Observable<boolean>;
+  showApp$: Observable<boolean>;
+  showSplash$: Observable<boolean>;
   showFacebookLogin$: Observable<boolean>;
 
   constructor(
     private facebookLoginService: FacebookLoginService,
+    private authService: AuthService,
     private store: Store
   ) {
     this.facebookLoginService.init();
-    this.initialized$ = this.store.state$.pipe(map(s => s.facebookTokenInitialized && !!s.facebookToken));
-    this.showFacebookLogin$ = this.store.state$.pipe(map(s => s.facebookTokenInitialized && !s.facebookToken));
+  }
+
+  ngOnInit() {
+    this.showApp$ = this.store.state$.pipe(
+      map(s => !!s.jwt)
+    );
+    this.showSplash$ = this.store.state$.pipe(
+      map(s => !s.jwt)
+    );
+    this.showFacebookLogin$ = this.store.state$.pipe(
+      map(s => !s.facebookToken)
+    );
+    this.store.state$.pipe(
+      map(s => s.facebookToken),
+      first(t => !!t)
+    ).subscribe(token => {
+      this.authService.obtainJwt(token);
+    });
   }
 
 }

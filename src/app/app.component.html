@@ -1,6 +1,6 @@
-<router-outlet *ngIf="initialized$ | async"></router-outlet>
+<router-outlet *ngIf="showApp$ | async"></router-outlet>
 
 <app-splash
-  *ngIf="!(initialized$ | async)"
+  *ngIf="showSplash$ | async"
   [showFacebookLogin]="showFacebookLogin$ | async">
 </app-splash>

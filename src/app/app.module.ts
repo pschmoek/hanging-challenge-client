@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { FacebookLoginComponent } from './login/facebook-login.component';
-import { FacebookLoginService } from './login/facebook-login.service';
+import { FacebookLoginComponent } from './facebook-login/facebook-login.component';
+import { FacebookLoginService } from './facebook-login/facebook-login.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BackendLoginService } from './login/backend-login.service';
 import { SplashComponent } from './splash/splash.component';
 import { Store } from './store/store';
+import { AuthService } from './auth/auth.service';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -26,7 +26,7 @@ export const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [Store, FacebookLoginService, BackendLoginService],
+  providers: [Store, FacebookLoginService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
