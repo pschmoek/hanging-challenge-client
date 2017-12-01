@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
       map(s => s.facebookToken),
       filter(token => token != null),
       first()
-    ).subscribe(token => {
+    ).subscribe((token: string) => {
       this.authService.obtainJwt(token);
     });
   }
