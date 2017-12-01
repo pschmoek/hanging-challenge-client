@@ -13,7 +13,7 @@ export class AuthService {
   ) { }
 
   obtainJwt(fbAccessToken: string) {
-    this.http.post<AuthResponse>('/api/rest/auth', { fbAccessToken })
+    this.http.post<AuthResponse>('/api/auth', { fbAccessToken })
       .subscribe(response => {
         this.store.setJwt(response.jwt);
       });
