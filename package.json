@@ -5,7 +5,7 @@
   "description": "Client application written in TypeScript for Hanging Challenge.",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

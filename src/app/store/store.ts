@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { State } from './state';
+import { User } from '../user/user';
 
 export const defaultState: State = {
   facebookToken: null
@@ -24,6 +25,13 @@ export class Store {
     this.stateSource.next({
       ...this.stateSource.getValue(),
       jwt: token
+    });
+  }
+
+  setUser(user: User) {
+    this.stateSource.next({
+      ...this.stateSource.getValue(),
+      userName: user.userName
     });
   }
 

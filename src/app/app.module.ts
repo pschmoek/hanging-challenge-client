@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SplashComponent } from './splash/splash.component';
 import { Store } from './store/store';
 import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -28,7 +29,7 @@ export const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule
   ],
-  providers: [Store, FacebookLoginService, AuthService],
+  providers: [Store, FacebookLoginService, AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { first, filter, map } from 'rxjs/operators';
+
 import { Store } from '../store/store';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { User } from './user';
 
 @Injectable()
 export class UserService {
@@ -11,7 +15,13 @@ export class UserService {
   ) { }
 
   loadUser() {
-    
+    this.store.state$.pipe(
+      map(s => s.jwt),
+      filter(t => t != null),
+      first(),
+      map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
+      switchMap(headers => this.http.get<User>('/api/user', { headers }))
+    ).subscribe(user => this.store.setUser(user));
   }
 
 }

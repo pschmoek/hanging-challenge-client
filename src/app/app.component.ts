@@ -6,6 +6,7 @@ import { first, filter } from 'rxjs/operators';
 import { FacebookLoginService } from './facebook-login/facebook-login.service';
 import { Store } from './store/store';
 import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,12 @@ export class AppComponent implements OnInit {
   showApp$: Observable<boolean>;
   showSplash$: Observable<boolean>;
   showFacebookLogin$: Observable<boolean>;
+  userName$: Observable<string|undefined>;
 
   constructor(
     private facebookLoginService: FacebookLoginService,
     private authService: AuthService,
+    private userService: UserService,
     private store: Store
   ) {
     this.facebookLoginService.init();
@@ -35,12 +38,16 @@ export class AppComponent implements OnInit {
     this.showFacebookLogin$ = this.store.state$.pipe(
       map(s => !s.facebookToken)
     );
+    this.userName$ = this.store.state$.pipe(
+      map(s => s.userName)
+    );
     this.store.state$.pipe(
       map(s => s.facebookToken),
       filter(token => token != null),
       first()
     ).subscribe((token: string) => {
       this.authService.obtainJwt(token);
+      this.userService.loadUser();
     });
   }
 
