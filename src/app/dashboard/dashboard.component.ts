@@ -2,8 +2,17 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
-  template: `<h2>This is dashboard!!!</h2>`
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent {
+
+  onAnalyzeClick() {
+
+  }
+
+  onTrainClick() {
+
+  }
 
 }

@@ -1,4 +1,11 @@
-<h1>Hello {{ userName$ | async }}</h1>
+<div class="header-row" *ngIf="userName$ | async">
+  <span class=title>Hanging Challenge</span>
+  <span class=grow></span>
+  <span class=user-info>
+    <span>Logged in as</span> 
+    <strong>{{ userName$ | async }}</strong>
+  </span>
+</div>
 
 <router-outlet *ngIf="showApp$ | async"></router-outlet>
 
