@@ -9,7 +9,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Store } from './store/store';
-import { TrainComponent } from './train/train.component';
 import { ReadyToStartComponent } from './train/ready-to-start/ready-to-start.component';
 import { CountDownComponent } from './train/count-down/count-down.component';
 import { RunningComponent } from './train/running/running.component';
@@ -22,7 +21,6 @@ import { AppComponent } from './core/containers/app/app.component';
 @NgModule({
   declarations: [
     DashboardComponent,
-    TrainComponent,
     ReadyToStartComponent,
     CountDownComponent,
     RunningComponent,

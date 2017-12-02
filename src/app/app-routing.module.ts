@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TrainComponent } from './train/train.component';
 
 /*
  * Workaround https://github.com/ngrx/platform/pull/188
@@ -29,7 +28,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'analyze', loadChildren: './analyze/analyze.module#AnalyzeModule' },
-  { path: 'train', component: TrainComponent }
+  { path: 'train', loadChildren: './train/train.module#TrainModule' }
 ];
 
 @NgModule({
