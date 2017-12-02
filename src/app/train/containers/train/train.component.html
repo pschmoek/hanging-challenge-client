@@ -1,3 +1,10 @@
-<p>
-  train works!
-</p>
+<app-ready-to-start
+  *ngIf="isReadyToStart$ | async"
+  (playButtonClick)="onPlayButtonClick()">
+</app-ready-to-start>
+
+<app-running
+  *ngIf="isRunning$ | async"
+  [maxTime]="maxRunningTime$ | async"
+  [currentTime]="currentHangTime$ | async">
+</app-running>

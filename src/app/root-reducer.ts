@@ -10,7 +10,7 @@ export interface AppState {
   router: RouterReducerState<RouterStateUrl>;
 }
 
-export const reducers = {
+export const rootReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.reducer,
   router: routerReducer,
 };
