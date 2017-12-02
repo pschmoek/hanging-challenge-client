@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { State } from './state';
-import { User } from '../user/user';
 import { HangActivitySettings } from './hang-activity-settings';
 import { Hang } from '../hang/hang';
+import { User } from '../core/services/user/user';
 
 export const defaultSettings: HangActivitySettings = {
   accumulatedDailyTarget: 600,

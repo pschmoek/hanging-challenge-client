@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map } from 'rxjs/operators';
 
-import { Store } from '../store/store';
+import { Store } from '../../../store/store';
 
 @Injectable()
 export class FacebookLoginService {

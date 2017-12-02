@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { first, filter, map } from 'rxjs/operators';
+import { first, filter, map, switchMap } from 'rxjs/operators';
 
-import { Store } from '../store/store';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { Store } from '../../../store/store';
 import { User } from './user';
 
 @Injectable()

@@ -2,14 +2,13 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
-import { FacebookLoginService } from './facebook-login.service';
-import { Store } from '../store/store';
+import { Store } from '../../../store/store';
 
 @Component({
-  selector: 'app-facebook-login',
-  templateUrl: './facebook-login.component.html'
+  selector: 'app-facebook-login-button',
+  templateUrl: './facebook-login-button.component.html'
 })
-export class FacebookLoginComponent implements OnInit {
+export class FacebookLoginButtonComponent implements OnInit {
 
   constructor(
     private elementRef: ElementRef

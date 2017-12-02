@@ -5,8 +5,8 @@ import { Component, Input } from '@angular/core';
   template: `
 <h2>Es wird nach einer bestehenden Session gesucht...</h2>
 
-<app-facebook-login *ngIf="showFacebookLogin">
-</app-facebook-login>
+<app-facebook-login-button *ngIf="showFacebookLogin">
+</app-facebook-login-button>
   `
 })
 export class SplashComponent {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthResponse } from './auth-response';
-import { Store } from '../store/store';
+import { Store } from '../../../store/store';
 
 @Injectable()
 export class AuthService {
