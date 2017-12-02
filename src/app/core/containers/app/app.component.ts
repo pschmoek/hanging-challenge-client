@@ -3,11 +3,15 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { first, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { Store } from '../../../store/store';
 import { FacebookLoginService } from '../../services/facebook/facebook-login.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
+
+import * as fromAuth from '../../reducers/auth';
+import * as auth from '../../actions/auth';
+import { AppState } from '../../../root-reducer';
 
 @Component({
   selector: 'app-root',
@@ -20,39 +24,29 @@ export class AppComponent implements OnInit {
   showApp$: Observable<boolean>;
   showSplash$: Observable<boolean>;
   showFacebookLogin$: Observable<boolean>;
-  userName$: Observable<string|undefined>;
+  userName$: Observable<string|null>;
 
   constructor(
     private facebookLoginService: FacebookLoginService,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private store: Store
-  ) {
-    this.facebookLoginService.init();
-  }
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
-    this.showApp$ = this.store.state$.pipe(
-      map(s => !!s.jwt)
+    this.facebookLoginService.init();
+
+    this.showApp$ = this.store.select(s => s.auth.jwt).pipe(
+      map(t => !!t)
     );
-    this.showSplash$ = this.store.state$.pipe(
-      map(s => !s.jwt)
+    this.showSplash$ = this.store.select(s => s.auth.jwt).pipe(
+      map(t => !t)
     );
-    this.showFacebookLogin$ = this.store.state$.pipe(
-      map(s => !s.facebookToken)
+    this.showFacebookLogin$ = this.store.select(s => s.auth.facebookToken).pipe(
+      map(t => !t)
     );
-    this.userName$ = this.store.state$.pipe(
-      map(s => s.userName)
-    );
-    this.store.state$.pipe(
-      map(s => s.facebookToken),
-      filter(token => token != null),
-      first()
-    ).subscribe((token: string) => {
-      this.authService.obtainJwt(token);
-      this.userService.loadUser();
-    });
+    this.userName$ = this.store.select(s => s.auth.userName);
   }
 
   onTitleClick() {

@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import { first, filter, map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
-import { Store } from '../../../store/store';
 import { User } from './user';
+import { AppState } from '../../../root-reducer';
 
 @Injectable()
 export class UserService {
 
   constructor(
     private http: HttpClient,
-    private store: Store
+    private store: Store<AppState>
   ) { }
 
-  loadUser() {
-    this.store.state$.pipe(
-      map(s => s.jwt),
-      filter(t => t != null),
+  loadUser(): Observable<User> {
+    return this.store.select(s => s.auth.jwt).pipe(
+      filter(t => !!t === true),
       first(),
       map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
       switchMap(headers => this.http.get<User>('/api/user', { headers }))
-    ).subscribe(user => this.store.setUser(user));
+    );
   }
 
 }

@@ -16,12 +16,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './core/containers/app/app.component';
+import { reducers } from './root-reducer';
 
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ routerReducer: routerReducer }),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     !environment.production
       ? StoreDevtoolsModule.instrument()
