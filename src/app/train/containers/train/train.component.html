@@ -8,3 +8,7 @@
   [maxTime]="maxRunningTime$ | async"
   [currentTime]="currentHangTime$ | async">
 </app-running>
+
+<app-resting
+  *ngIf="isResting$ | async">
+</app-resting>

@@ -15,8 +15,11 @@ export class TrainComponent implements OnInit {
 
   isReadyToStart$: Observable<boolean>;
   isRunning$: Observable<boolean>;
+  isResting$: Observable<boolean>;
   maxRunningTime$: Observable<number>;
   currentHangTime$: Observable<number|null>;
+  restingTime$: Observable<number>;
+  currentRestingTime$: Observable<number|null>;
 
   constructor(private store: Store<TrainState>) { }
 
@@ -25,6 +28,9 @@ export class TrainComponent implements OnInit {
     this.isRunning$ = this.store.select(s => s.train.hang.isHangRunning);
     this.maxRunningTime$ = this.store.select(s => s.train.hang.settings.maxPerRepetition);
     this.currentHangTime$ = this.store.select(s => s.train.hang.currentHangTime);
+    this.isResting$ = this.store.select(s => s.train.hang.isResting);
+    this.restingTime$ = this.store.select(s => s.train.hang.settings.pauseTime);
+    this.currentRestingTime$ = this.store.select(s => s.train.hang.currentRestTime);
   }
 
   onPlayButtonClick() {
