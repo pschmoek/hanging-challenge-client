@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core/';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { first, filter, map, switchMap, finalize } from 'rxjs/operators';
 
-import { Store } from '../store/store';
+import { Store } from '../../store/store';
 import { Hang } from './hang';
 
 @Injectable()

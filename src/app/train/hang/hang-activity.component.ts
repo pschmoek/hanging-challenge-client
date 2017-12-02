@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { OnInit } from '@angular/core';
 import { map } from 'rxjs/operators/map';
 
-import { Store } from '../store/store';
-import { HangActivitySettings } from '../store/hang-activity-settings';
+import { Store } from '../../store/store';
+import { HangActivitySettings } from '../../store/hang-activity-settings';
 
 @Component({
   selector: 'app-hang-activity',

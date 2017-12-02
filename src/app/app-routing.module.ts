@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AnalyzeComponent } from './analyze/analyze.component';
 import { TrainComponent } from './train/train.component';
 
 /*
@@ -29,7 +28,7 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'analyze', component: AnalyzeComponent },
+  { path: 'analyze', loadChildren: './analyze/analyze.module#AnalyzeModule' },
   { path: 'train', component: TrainComponent }
 ];
 
