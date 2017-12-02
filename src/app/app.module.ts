@@ -7,7 +7,6 @@ import { routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { Store } from './store/store';
 import { ReadyToStartComponent } from './train/ready-to-start/ready-to-start.component';
 import { CountDownComponent } from './train/count-down/count-down.component';
@@ -19,17 +18,9 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './core/containers/app/app.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    ReadyToStartComponent,
-    CountDownComponent,
-    RunningComponent,
-    RestingComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     StoreModule.forRoot({ routerReducer: routerReducer }),
     EffectsModule.forRoot([]),
     !environment.production

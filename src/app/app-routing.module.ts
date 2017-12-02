@@ -2,7 +2,7 @@ import { RouterModule, Routes, RouterStateSnapshot } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './core/containers/dashboard/dashboard.component';
 
 /*
  * Workaround https://github.com/ngrx/platform/pull/188
