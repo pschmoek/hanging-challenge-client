@@ -10,5 +10,7 @@
 </app-running>
 
 <app-resting
-  *ngIf="isResting$ | async">
+  *ngIf="isResting$ | async"
+  [currentTime]="currentRestingTime$ | async"
+  [restingTime]="restingTime$ | async">
 </app-resting>
