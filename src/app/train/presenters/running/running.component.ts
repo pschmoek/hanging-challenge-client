@@ -20,7 +20,7 @@ export class RunningComponent implements OnInit {
       return 0;
     }
 
-    return Math.round(this.currentTime / this.maxTime);
+    return Math.round(100 * this.currentTime / this.maxTime);
   }
 
 }
