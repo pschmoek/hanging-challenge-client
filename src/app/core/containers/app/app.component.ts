@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { first, filter } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
