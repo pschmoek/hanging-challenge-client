@@ -1,4 +1,4 @@
-import { RouterModule, Routes, RouterStateSnapshot } from '@angular/router';
+import { RouterModule, Routes, RouterStateSnapshot, PreloadAllModules } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 
@@ -32,7 +32,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), StoreRouterConnectingModule],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }), StoreRouterConnectingModule],
   exports: [RouterModule],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer }
