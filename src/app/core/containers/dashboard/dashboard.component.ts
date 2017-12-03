@@ -9,16 +9,4 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
 
-  constructor(
-    private router: Router
-  ) { }
-
-  onAnalyzeClick() {
-    this.router.navigate(['analyze']);
-  }
-
-  onTrainClick() {
-    this.router.navigate(['train']);
-  }
-
 }
