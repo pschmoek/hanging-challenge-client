@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Hang } from '../services/hang/hang';
+import { HangActivitySettings } from '../reducers/hang-activity-settings';
 
 export const LOAD_HANGS = '[Hang] Load Hangs';
 export const LOAD_HANGS_SUCCESS = '[Hang] Load Hangs Success';
@@ -12,6 +13,7 @@ export const HANG_COMPLETE = '[Hang] Hang Complete';
 export const REST_TIME_PAST = '[Hang] Rest Time Past';
 export const REST_COMPLETE = '[Hang] Rest Complete';
 export const OVERLAY_UPDATE = '[Hang] Overlay Update';
+export const SETTINGS_CHANGE = '[Hang] Settings Change';
 
 export class LoadHangsAction implements Action {
   readonly type = LOAD_HANGS;
@@ -67,6 +69,12 @@ export class OverlayUpdateAction implements Action {
   constructor(public payload: string) { }
 }
 
+export class SettingsChangeAction implements Action {
+  readonly type = SETTINGS_CHANGE;
+
+  constructor(public payload: HangActivitySettings) { }
+}
+
 export type HangActions = LoadHangsAction
                         | LoadHangsSuccessAction
                         | SaveHangAction
@@ -76,4 +84,5 @@ export type HangActions = LoadHangsAction
                         | HangCompleteAction
                         | RestTimePastAction
                         | RestCompleteAction
-                        | OverlayUpdateAction;
+                        | OverlayUpdateAction
+                        | SettingsChangeAction;

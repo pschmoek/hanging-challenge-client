@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TrainComponent } from './containers/train/train.component';
 import { TrainRoutingModule } from './train-routing.module';
@@ -32,6 +33,7 @@ export const COMPONENTS = [
   imports: [
     SharedModule,
     TrainRoutingModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('train', trainReducers),
     EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveNewHangEffect])
   ],

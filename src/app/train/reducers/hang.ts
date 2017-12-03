@@ -11,7 +11,8 @@ import {
   HANG_COMPLETE,
   REST_TIME_PAST,
   REST_COMPLETE,
-  OVERLAY_UPDATE
+  OVERLAY_UPDATE,
+  SETTINGS_CHANGE
 } from '../actions/hang';
 
 export interface HangState {
@@ -30,7 +31,6 @@ export interface HangState {
 }
 
 export const defaultSettings: HangActivitySettings = {
-  accumulatedDailyTarget: 600,
   autoStart: true,
   countdown: 5,
   endTimeBuffer: 3,
@@ -162,6 +162,12 @@ export function reducer(state = initialState, action: HangActions): HangState {
         overlayText: action.payload
       };
     }
+
+    case SETTINGS_CHANGE:
+      return {
+        ...state,
+        settings: action.payload
+      };
 
     default:
       return state;

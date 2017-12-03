@@ -1,5 +1,8 @@
 <app-ready-to-start
   *ngIf="isReadyToStart$ | async"
+  [playbuttonText]="playButtonText$ | async"
+  [settings]="settings$ | async"
+  (settingsChange)="onSettingsChange($event)"
   (playButtonClick)="onPlayButtonClick()">
 </app-ready-to-start>
 
