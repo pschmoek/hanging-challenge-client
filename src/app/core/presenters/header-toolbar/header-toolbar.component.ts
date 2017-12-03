@@ -9,5 +9,7 @@ export class HeaderToolbarComponent {
 
   @Input() userName: string;
   @Output() titleClick = new EventEmitter();
+  @Output() trainClick = new EventEmitter();
+  @Output() analyzeClick = new EventEmitter();
 
 }

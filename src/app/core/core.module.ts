@@ -13,13 +13,19 @@ import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { AuthEffect } from './effects/auth';
+import { RingLogoComponent } from './presenters/ring-logo/ring-logo.component';
+import { AnalyzeLogoComponent } from './presenters/analyze-logo/analyze-logo.component';
+import { HeaderNavLogoComponent } from './presenters/header-nav-logo/header-nav-logo.component';
 
 export const COMPONENTS = [
   AppComponent,
   HeaderToolbarComponent,
   SplashComponent,
   FacebookLoginButtonComponent,
-  DashboardComponent
+  DashboardComponent,
+  RingLogoComponent,
+  AnalyzeLogoComponent,
+  HeaderNavLogoComponent
 ];
 
 @NgModule({

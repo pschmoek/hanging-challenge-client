@@ -1,7 +1,9 @@
 <app-header-toolbar
   *ngIf="userName$ | async"
   [userName]="userName$ | async"
-  (titleClick)="onTitleClick()">
+  (titleClick)="onTitleClick()"
+  (analyzeClick)="onAnalyzeClick()"
+  (trainClick)="onTrainClick()">
 </app-header-toolbar>
 
 <router-outlet *ngIf="showApp$ | async"></router-outlet>

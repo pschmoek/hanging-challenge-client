@@ -1,8 +1,29 @@
 <div class="header-row">
-  <span class=title (click)="titleClick.emit()">Hanging Challenge</span>
-  <span class=grow></span>
-  <span class=user-info>
-    <span>Logged in as</span> 
-    <strong>{{ userName }}</strong>
-  </span>
+  <div class=container>
+
+    <div class=title-box (click)="titleClick.emit()">
+      <span class=title>Hanging Challenge</span>
+    </div>
+
+    <app-header-nav-logo
+      (click)="trainClick.emit()"
+      color="lightgreen"
+      text="Train">
+      <app-ring-logo></app-ring-logo>      
+    </app-header-nav-logo>
+
+    <app-header-nav-logo
+      (click)="analyzeClick.emit()"
+      color="lightblue"
+      text="Analyze">
+      <app-analyze-logo></app-analyze-logo>      
+    </app-header-nav-logo>
+
+    <span class=grow></span>
+
+    <span class=user-info>
+      {{ userName }}
+    </span>
+
+  </div>
 </div>

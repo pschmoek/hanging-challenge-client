@@ -53,4 +53,12 @@ export class AppComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
+  onTrainClick() {
+    this.router.navigate(['train']);
+  }
+
+  onAnalyzeClick() {
+    this.router.navigate(['analyze']);
+  }
+
 }

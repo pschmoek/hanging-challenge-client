@@ -1,8 +1,16 @@
+* {
+  user-select: none;
+}
+
 .header-row {
-  height: 40px;
-  display: flex;
+  height: 50px;
   font-family: sans-serif;
   background-color: #EDEDED;
+}
+
+.container {
+  margin: 0 10px 0 10px;
+  display: flex;
   align-items: center;
 }
 
@@ -11,11 +19,10 @@
 }
 
 .user-info {
-  margin-right: 10px;
+  margin-bottom: 4px;
 }
 
 .title {
-  margin-left: 10px;
   cursor: pointer;
 
   &:hover {
@@ -25,4 +32,12 @@
   &:active {
     color: rgb(106, 106, 250);
   }
+}
+
+.title-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 3px solid transparent;
+  width: 175px;
 }
