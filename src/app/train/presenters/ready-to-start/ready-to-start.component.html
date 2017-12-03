@@ -4,37 +4,30 @@
   
   <form novalidate [formGroup]="settingsForm">
 
-    <div class="form-group row">
-      <label for="maxRepDuration" class="col-md-3 col-form-label">Repetition Duration</label>
-      <div class="col-sm-9">
+    <div class=row>
+      <div class="form-group col-md-3">
+        <label for="maxRepDuration">Repetition Duration</label>
         <input type="number" class="form-control" id="maxRepDuration" formControlName="maxPerRepetition">
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="pauseDuration" class="col-md-3 col-form-label">Pause Duration</label>
-      <div class="col-sm-9">
+      <div class="form-group col-md-3">
+        <label for="pauseDuration">Pause Duration</label>
         <input type="number" class="form-control" id="pauseDuration" formControlName="pauseTime">
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="countdownTime" class="col-md-3 col-form-label">Countdown Duration</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="countdownTime" formControlName="countdown">
+      <div class="form-group col-md-3">
+        <label for="countdownTime">Countdown Duration</label>
+        <input type="number" class="form-control" id="countdownTime" formControlName="countdown">        
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="endTimeBuffer">End Time Buffer</label>
+        <input type="number" class="form-control" id="endTimeBuffer" formControlName="endTimeBuffer">        
       </div>
     </div>
 
-    <div class="form-group row" title="Time which is cut off when canceled earlier (time from rings to device)">
-      <label for="endTimeBuffer" class="col-md-3 col-form-label">End Time Buffer</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="endTimeBuffer" formControlName="endTimeBuffer">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="col-sm-3">Auto Start</div>
-      <div class="col-sm-9">
+    <div class=row>
+      <div class="form-group col-md-4">
         <div class="form-check">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox" formControlName="autoStart"> Multiple repetitions with rest in between
@@ -43,12 +36,7 @@
       </div>
     </div>
 
+    <button [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
+    <button (click)="settingsToDefaultButtonClick.emit()" class="btn btn-info">Set Default Values</button>
   </form>
-
-  <div class="row">
-    <div class="offset-md-9 col-md-3 play-button-container">
-      <button [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
-    </div>
-  </div>
-
 </div>

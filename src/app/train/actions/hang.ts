@@ -14,6 +14,7 @@ export const REST_TIME_PAST = '[Hang] Rest Time Past';
 export const REST_COMPLETE = '[Hang] Rest Complete';
 export const OVERLAY_UPDATE = '[Hang] Overlay Update';
 export const SETTINGS_CHANGE = '[Hang] Settings Change';
+export const SETTINGS_SET_DEFAULT = '[Hang] Settings Set Default';
 
 export class LoadHangsAction implements Action {
   readonly type = LOAD_HANGS;
@@ -75,6 +76,10 @@ export class SettingsChangeAction implements Action {
   constructor(public payload: HangActivitySettings) { }
 }
 
+export class SettingsSetDefaultAction implements Action {
+  readonly type = SETTINGS_SET_DEFAULT;
+}
+
 export type HangActions = LoadHangsAction
                         | LoadHangsSuccessAction
                         | SaveHangAction
@@ -85,4 +90,5 @@ export type HangActions = LoadHangsAction
                         | RestTimePastAction
                         | RestCompleteAction
                         | OverlayUpdateAction
-                        | SettingsChangeAction;
+                        | SettingsChangeAction
+                        | SettingsSetDefaultAction;

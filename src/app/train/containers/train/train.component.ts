@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { TrainState, selectPlayButtonText } from '../../reducers/index';
-import { StartHangAction, SettingsChangeAction } from '../../actions/hang';
+import { StartHangAction, SettingsChangeAction, SettingsSetDefaultAction } from '../../actions/hang';
 import { HangActivitySettings } from '../../reducers/hang-activity-settings';
 
 @Component({
@@ -44,6 +44,10 @@ export class TrainComponent implements OnInit {
 
   onSettingsChange(settings: HangActivitySettings) {
     this.store.dispatch(new SettingsChangeAction(settings));
+  }
+
+  onSettingsToDefaultButtonClick() {
+    this.store.dispatch(new SettingsSetDefaultAction());
   }
 
 }

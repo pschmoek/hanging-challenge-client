@@ -12,7 +12,8 @@ import {
   REST_TIME_PAST,
   REST_COMPLETE,
   OVERLAY_UPDATE,
-  SETTINGS_CHANGE
+  SETTINGS_CHANGE,
+  SETTINGS_SET_DEFAULT
 } from '../actions/hang';
 
 export interface HangState {
@@ -167,6 +168,12 @@ export function reducer(state = initialState, action: HangActions): HangState {
       return {
         ...state,
         settings: action.payload
+      };
+
+    case SETTINGS_SET_DEFAULT:
+      return {
+        ...state,
+        settings: defaultSettings
       };
 
     default:

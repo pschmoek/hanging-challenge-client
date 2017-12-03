@@ -14,6 +14,7 @@ export class ReadyToStartComponent implements OnInit, OnChanges {
   @Input() settings: HangActivitySettings;
   @Output() playButtonClick = new EventEmitter();
   @Output() settingsChange = new EventEmitter<HangActivitySettings>();
+  @Output() settingsToDefaultButtonClick = new EventEmitter();
 
   settingsForm: FormGroup;
 

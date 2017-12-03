@@ -3,7 +3,8 @@
   [playbuttonText]="playButtonText$ | async"
   [settings]="settings$ | async"
   (settingsChange)="onSettingsChange($event)"
-  (playButtonClick)="onPlayButtonClick()">
+  (playButtonClick)="onPlayButtonClick()"
+  (settingsToDefaultButtonClick)="onSettingsToDefaultButtonClick()">
 </app-ready-to-start>
 
 <app-running
