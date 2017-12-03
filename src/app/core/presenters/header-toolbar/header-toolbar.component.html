@@ -6,6 +6,7 @@
     </div>
 
     <app-header-nav-logo
+      [isActive]="currentUrl === '/train'"
       (click)="trainClick.emit()"
       color="lightgreen"
       text="Train">
@@ -13,6 +14,7 @@
     </app-header-nav-logo>
 
     <app-header-nav-logo
+      [isActive]="currentUrl === '/analyze'"
       (click)="analyzeClick.emit()"
       color="lightblue"
       text="Analyze">

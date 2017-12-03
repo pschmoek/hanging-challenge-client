@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class HeaderToolbarComponent {
 
   @Input() userName: string;
+  @Input() currentUrl: string;
   @Output() titleClick = new EventEmitter();
   @Output() trainClick = new EventEmitter();
   @Output() analyzeClick = new EventEmitter();

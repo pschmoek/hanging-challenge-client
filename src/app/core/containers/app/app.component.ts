@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { FacebookLoginService } from '../../services/facebook/facebook-login.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
-
 import * as fromAuth from '../../reducers/auth';
 import * as auth from '../../actions/auth';
 import { AppState } from '../../../root-reducer';
@@ -25,6 +24,7 @@ export class AppComponent implements OnInit {
   showSplash$: Observable<boolean>;
   showFacebookLogin$: Observable<boolean>;
   userName$: Observable<string|null>;
+  currentUrl$: Observable<string>;
 
   constructor(
     private facebookLoginService: FacebookLoginService,
@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
       map(t => !t)
     );
     this.userName$ = this.store.select(s => s.auth.userName);
+    this.currentUrl$ = this.store.select(s => s.router.state.url);
   }
 
   onTitleClick() {

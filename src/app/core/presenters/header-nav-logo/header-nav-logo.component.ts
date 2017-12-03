@@ -9,5 +9,6 @@ export class HeaderNavLogoComponent {
 
   @Input() text: string;
   @Input() color: string;
+  @Input() isActive: boolean;
 
 }

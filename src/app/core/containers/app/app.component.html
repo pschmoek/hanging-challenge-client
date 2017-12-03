@@ -1,6 +1,7 @@
 <app-header-toolbar
   *ngIf="userName$ | async"
   [userName]="userName$ | async"
+  [currentUrl]="currentUrl$ | async"
   (titleClick)="onTitleClick()"
   (analyzeClick)="onAnalyzeClick()"
   (trainClick)="onTrainClick()">
