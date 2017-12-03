@@ -25,8 +25,7 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
 }
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', component: DashboardComponent, pathMatch: 'full' },
   { path: 'analyze', loadChildren: './analyze/analyze.module#AnalyzeModule' },
   { path: 'train', loadChildren: './train/train.module#TrainModule' }
 ];

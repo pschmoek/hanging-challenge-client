@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   }
 
   onTitleClick() {
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['']);
   }
 
   onTrainClick() {
