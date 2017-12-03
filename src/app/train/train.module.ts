@@ -15,13 +15,15 @@ import { RestEffects } from './effects/rest';
 import { SaveNewHangEffect } from './effects/save-new-hang';
 import { HangService } from './services/hang/hang.service';
 import { InitEffect } from './effects/init';
+import { SessionSummaryComponent } from './presenters/session-summary/session-summary.component';
 
 export const COMPONENTS = [
   TrainComponent,
   CountDownComponent,
   ReadyToStartComponent,
   RestingComponent,
-  RunningComponent
+  RunningComponent,
+  SessionSummaryComponent
 ];
 
 @NgModule({
