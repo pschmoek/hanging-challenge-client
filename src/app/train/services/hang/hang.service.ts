@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core/';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { first, map, switchMap, finalize } from 'rxjs/operators';
+import { first, map, switchMap, finalize, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../../../root-reducer';
 import { Hang } from './hang';
+import { TrainState } from '../../reducers/index';
+import { selectHttpHeaders } from '../../../root-reducer';
 
 @Injectable()
 export class HangService {
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<TrainState>,
     private http: HttpClient
   ) { }
 

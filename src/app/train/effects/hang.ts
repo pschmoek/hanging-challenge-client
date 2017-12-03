@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, takeUntil, withLatestFrom, takeWhile } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
-import { StartHangAction, START_HANG, HangTimePastAction, HangCompleteAction } from '../actions/hang';
+import { StartHangAction, START_HANG, HangTimePastAction, HangCompleteAction, RestCompleteAction, REST_COMPLETE } from '../actions/hang';
 import { TrainState } from '../reducers/index';
 
 @Injectable()
 export class HangEffects {
 
   @Effect()
-  $run: Observable<Action> = this.actions$.ofType<StartHangAction>(START_HANG)
+  run$: Observable<Action> = this.actions$.ofType<StartHangAction|RestCompleteAction>(START_HANG, REST_COMPLETE)
     .pipe(
       withLatestFrom(this.store.select(s => s.train.hang.settings)),
       map(v => v[1]),
@@ -44,6 +43,6 @@ export class HangEffects {
   constructor(
     private actions$: Actions,
     private store: Store<TrainState>
-  ) {}
+  ) { }
 
 }

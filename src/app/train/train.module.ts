@@ -11,6 +11,10 @@ import { RunningComponent } from './presenters/running/running.component';
 import { trainReducers } from './reducers/index';
 import { SharedModule } from '../shared/shared.module';
 import { HangEffects } from './effects/hang';
+import { RestEffects } from './effects/rest';
+import { SaveNewHangEffect } from './effects/save-new-hang';
+import { HangService } from './services/hang/hang.service';
+import { InitEffect } from './effects/init';
 
 export const COMPONENTS = [
   TrainComponent,
@@ -27,8 +31,8 @@ export const COMPONENTS = [
     SharedModule,
     TrainRoutingModule,
     StoreModule.forFeature('train', trainReducers),
-    EffectsModule.forFeature([HangEffects])
+    EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveNewHangEffect])
   ],
-  providers: []
+  providers: [HangService]
 })
 export class TrainModule { }

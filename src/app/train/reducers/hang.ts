@@ -34,8 +34,8 @@ export const defaultSettings: HangActivitySettings = {
   autoStart: true,
   countdown: 5,
   endTimeBuffer: 3,
-  maxPerRepetition: 60,
-  pauseTime: 60
+  maxPerRepetition: 5, // 60
+  pauseTime: 5 // 60
 };
 
 export const initialState: HangState = {
