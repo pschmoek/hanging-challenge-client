@@ -121,7 +121,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
       };
 
     case START_HANG: {
-      const isFirstRun = state.currentSession.hangs.length > 0;
+      const isFirstRun = state.currentSession.hangs.length === 0;
       const lastHangInSession = !isFirstRun
         ? state.currentSession.hangs[state.currentSession.hangs.length - 1]
         : null;
@@ -273,7 +273,11 @@ export function reducer(state = initialState, action: HangActions): HangState {
     case SHOW_SESSION_SUMMARY:
       return {
         ...state,
-        display: 'SessionSummary'
+        display: 'SessionSummary',
+        currentSession: {
+          ...state.currentSession,
+          end: state.currentSession.end || new Date()
+        }
       };
 
     default:
