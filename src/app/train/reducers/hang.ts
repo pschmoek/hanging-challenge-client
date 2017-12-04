@@ -128,8 +128,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
       const lastHangTime = lastHangInSession
         ? Math.round(
             // Diff in milliseconds / 1000
-            Math.abs(new Date(lastHangInSession.end).getMilliseconds()
-            - new Date(lastHangInSession.start).getMilliseconds()) / 1000
+            Math.abs(+new Date(lastHangInSession.end) - +new Date(lastHangInSession.start)) / 1000
         )
         : null;
 
@@ -177,8 +176,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
     }
 
     case STOP_HANG: {
-      const correctedEnd = new Date(
-        action.payload.getMilliseconds() - state.settings.endTimeBuffer * 1000);
+      const correctedEnd = new Date(+action.payload - state.settings.endTimeBuffer * 1000);
       if (!state.runningHang.start || correctedEnd < state.runningHang.start) {
         return state;
       }
