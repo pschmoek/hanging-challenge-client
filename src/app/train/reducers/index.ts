@@ -14,4 +14,4 @@ export const trainReducers = {
 };
 
 export const selectPlayButtonText = createSelector((state: TrainState) => state.train.hang.settings,
-  s => s.autoStart ? 'Start Session' : 'Start Hang');
+  s => s.autoStart ? 'Start Hang Training' : 'Start Single Hang');
