@@ -1,45 +1,54 @@
 import { Action } from '@ngrx/store';
 
 import { Hang } from '../services/hang/hang';
-import { HangActivitySettings } from '../reducers/hang-activity-settings';
+import { HangSession, HangActivitySettings } from '../reducers/hang';
 
-export const LOAD_HANGS = '[Hang] Load Hangs';
-export const LOAD_HANGS_SUCCESS = '[Hang] Load Hangs Success';
-export const SAVE_HANG = '[Hang] Save Hang';
-export const SAVE_HANG_SUCCESS = '[Hang] Save Hang Success';
+export const LOAD_TODAYS_HANGS = '[Hang] Load Todays Hangs';
+export const LOAD_TODAYS_HANGS_SUCCESS = '[Hang] Load Todays Hangs Success';
+export const SAVE_CURRENT_HANG_SESSION = '[Hang] Save Current Hang Session';
+export const SAVE_CURRENT_HANG_SESSION_SUCCESS = '[Hang] Save Current Hang Session Success';
+export const DISCARD_CURRENT_HANG_SESSION = '[Hang] Discard Current Hang Session';
 export const START_HANG = '[Hang] Start Hang';
 export const HANG_TIME_PAST = '[Hang] Hang Time Past';
-export const HANG_COMPLETE = '[Hang] Hang Complete';
+export const STOP_HANG = '[Hang] Stop Hang';
+export const START_REST = '[Hang] Start Rest';
 export const REST_TIME_PAST = '[Hang] Rest Time Past';
-export const REST_COMPLETE = '[Hang] Rest Complete';
-export const OVERLAY_UPDATE = '[Hang] Overlay Update';
+export const STOP_SESSION = '[Hang] Stop Session';
+export const SET_OVERLAY_TEXT = '[Hang] Set Overlay Text';
 export const SETTINGS_CHANGE = '[Hang] Settings Change';
-export const SETTINGS_SET_DEFAULT = '[Hang] Settings Set Default';
+export const SET_DEFAULT_HANG_ACTIVITY_SETTINGS = '[Hang] Set Default Hang Activity Settings';
+export const SHOW_SESSION_SUMMARY = '[Hang] Show Session Summary';
 
-export class LoadHangsAction implements Action {
-  readonly type = LOAD_HANGS;
+export class LoadTodaysHangsAction implements Action {
+  readonly type = LOAD_TODAYS_HANGS;
 }
 
-export class LoadHangsSuccessAction implements Action {
-  readonly type = LOAD_HANGS_SUCCESS;
+export class LoadTodaysHangsSuccessAction implements Action {
+  readonly type = LOAD_TODAYS_HANGS_SUCCESS;
 
   constructor(public payload: Hang[]) { }
 }
 
-export class SaveHangAction implements Action {
-  readonly type = SAVE_HANG;
+export class SaveCurrentHangSessionAction implements Action {
+  readonly type = SAVE_CURRENT_HANG_SESSION;
 
-  constructor(public payload: Hang) { }
+  constructor(public payload: HangSession) { }
 }
 
-export class SaveHangSuccessAction implements Action {
-  readonly type = SAVE_HANG_SUCCESS;
+export class SaveCurrentHangSessionSuccessAction implements Action {
+  readonly type = SAVE_CURRENT_HANG_SESSION_SUCCESS;
 
-  constructor(public payload: Hang) { }
+  constructor(public payload: Hang[]) { }
+}
+
+export class DiscardCurrentHangSessionAction implements Action {
+  readonly type = DISCARD_CURRENT_HANG_SESSION;
 }
 
 export class StartHangAction implements Action {
   readonly type = START_HANG;
+
+  constructor(public payload: { showCountdown: boolean }) { }
 }
 
 export class HangTimePastAction implements Action {
@@ -48,10 +57,14 @@ export class HangTimePastAction implements Action {
   constructor(public payload: number) { }
 }
 
-export class HangCompleteAction implements Action {
-  readonly type = HANG_COMPLETE;
+export class StopHangAction implements Action {
+  readonly type = STOP_HANG;
 
-  constructor(public payload: Hang) { }
+  constructor(public payload: Date) { }
+}
+
+export class StartRestAction implements Action {
+  readonly type = START_REST;
 }
 
 export class RestTimePastAction implements Action {
@@ -60,12 +73,12 @@ export class RestTimePastAction implements Action {
   constructor(public payload: number) { }
 }
 
-export class RestCompleteAction implements Action {
-  readonly type = REST_COMPLETE;
+export class StopSessionAction implements Action {
+  readonly type = STOP_SESSION;
 }
 
-export class OverlayUpdateAction implements Action {
-  readonly type = OVERLAY_UPDATE;
+export class SetOverlayTextAction implements Action {
+  readonly type = SET_OVERLAY_TEXT;
 
   constructor(public payload: string) { }
 }
@@ -76,19 +89,26 @@ export class SettingsChangeAction implements Action {
   constructor(public payload: HangActivitySettings) { }
 }
 
-export class SettingsSetDefaultAction implements Action {
-  readonly type = SETTINGS_SET_DEFAULT;
+export class SetDefaultHangActivitySettings implements Action {
+  readonly type = SET_DEFAULT_HANG_ACTIVITY_SETTINGS;
 }
 
-export type HangActions = LoadHangsAction
-                        | LoadHangsSuccessAction
-                        | SaveHangAction
-                        | SaveHangSuccessAction
+export class ShowSessionSummary implements Action {
+  readonly type = SHOW_SESSION_SUMMARY;
+}
+
+export type HangActions = LoadTodaysHangsAction
+                        | LoadTodaysHangsSuccessAction
+                        | SaveCurrentHangSessionAction
+                        | SaveCurrentHangSessionSuccessAction
+                        | DiscardCurrentHangSessionAction
                         | StartHangAction
                         | HangTimePastAction
-                        | HangCompleteAction
+                        | StopHangAction
+                        | StartRestAction
                         | RestTimePastAction
-                        | RestCompleteAction
-                        | OverlayUpdateAction
+                        | StopSessionAction
+                        | SetOverlayTextAction
                         | SettingsChangeAction
-                        | SettingsSetDefaultAction;
+                        | SetDefaultHangActivitySettings
+                        | ShowSessionSummary;

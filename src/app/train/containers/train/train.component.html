@@ -1,5 +1,5 @@
 <app-ready-to-start
-  *ngIf="isReadyToStart$ | async"
+  *ngIf="displayReadyToStart$ | async"
   [playbuttonText]="playButtonText$ | async"
   [settings]="settings$ | async"
   (settingsChange)="onSettingsChange($event)"
@@ -8,13 +8,17 @@
 </app-ready-to-start>
 
 <app-running
-  *ngIf="isRunning$ | async"
-  [maxTime]="maxRunningTime$ | async"
-  [currentTime]="currentHangTime$ | async">
+  *ngIf="displayRunning$ | async"
+  [runningHang]="runningHang$ | async"
+  (abordRun)="onAbordRun()">
 </app-running>
 
 <app-resting
-  *ngIf="isResting$ | async"
-  [currentTime]="currentRestingTime$ | async"
-  [restingTime]="restingTime$ | async">
+  *ngIf="displayResting$ | async"
+  [runningRest]="runningRest$ | async">
 </app-resting>
+
+<app-session-summary
+  *ngIf="displaySessionSummary$ | async"
+  [session]="session$ | async"> 
+</app-session-summary>

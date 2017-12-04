@@ -16,7 +16,7 @@ export class HangService {
     private http: HttpClient
   ) { }
 
-  getAllHangs(): Observable<Hang[]> {
+  getTodaysHangs(): Observable<Hang[]> {
     return this.store.select(s => s.auth.jwt).pipe(
       first(t => !!t),
       map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
@@ -24,11 +24,11 @@ export class HangService {
     );
   }
 
-  addHang(hang: Hang): Observable<Hang> {
+  addHangs(hangs: Hang[]): Observable<Hang[]> {
     return this.store.select(s => s.auth.jwt).pipe(
       first(t => !!t),
       map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
-      switchMap(headers => this.http.post<Hang>('/api/hangs', hang, { headers }))
+      switchMap(headers => this.http.post<Hang[]>('/api/hangs', hangs, { headers }))
     );
   }
 

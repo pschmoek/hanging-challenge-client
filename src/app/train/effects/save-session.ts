@@ -6,18 +6,18 @@ import { mergeMap, map } from 'rxjs/operators';
 import { Effect } from '@ngrx/effects';
 
 import { HangService } from '../services/hang/hang.service';
-import { HangCompleteAction, HANG_COMPLETE, SaveHangSuccessAction } from '../actions/hang';
+import { SAVE_CURRENT_HANG_SESSION, SaveCurrentHangSessionAction, SaveCurrentHangSessionSuccessAction } from '../actions/hang';
 
 @Injectable()
-export class SaveNewHangEffect {
+export class SaveSessionEffect {
 
   @Effect()
-  save$: Observable<Action> = this.actions$.ofType<HangCompleteAction>(HANG_COMPLETE)
+  save$: Observable<Action> = this.actions$.ofType<SaveCurrentHangSessionAction>(SAVE_CURRENT_HANG_SESSION)
     .pipe(
       map(a => a.payload),
-      mergeMap(hang => this.hangService.addHang(hang)
+      mergeMap(session => this.hangService.addHangs(session.hangs)
         .pipe(
-          map(savedHang => new SaveHangSuccessAction(savedHang))
+          map(savedHangs => new SaveCurrentHangSessionSuccessAction(savedHangs))
         )
       )
     );

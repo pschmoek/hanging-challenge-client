@@ -1,26 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RunningHang } from '../../reducers/hang';
 
 @Component({
   selector: 'app-running',
   templateUrl: './running.component.html',
   styleUrls: ['./running.component.less']
 })
-export class RunningComponent implements OnInit {
+export class RunningComponent {
 
-  @Input() maxTime: number;
-  @Input() currentTime: number|null;
+  @Input() runningHang: RunningHang;
+  @Output() abordRun = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
+  get currentInPercent(): number {
+    return RunningComponent.getPercent(this.runningHang.currentTime, this.runningHang.maxTime);
   }
 
-  get widthInPercent(): number {
-    if (!this.currentTime) {
+  get lastRunInPercent(): number {
+    return RunningComponent.getPercent(this.runningHang.lastHangTimeInSession, this.runningHang.maxTime);
+  }
+
+  private static getPercent(current: number|null, max: number): number {
+    if (!current) {
       return 0;
     }
 
-    return Math.round(100 * this.currentTime / this.maxTime);
+    return Math.round(100 * current / max);
   }
 
 }

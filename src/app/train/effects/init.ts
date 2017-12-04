@@ -10,7 +10,7 @@ import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 
 import { TrainState } from '../reducers/index';
 import { HangService } from '../services/hang/hang.service';
-import { LoadHangsAction, LoadHangsSuccessAction } from '../actions/hang';
+import { LoadTodaysHangsAction, LoadTodaysHangsSuccessAction } from '../actions/hang';
 
 @Injectable()
 export class InitEffect {
@@ -21,11 +21,11 @@ export class InitEffect {
       map(a => a.payload.routerState.url),
       filter(url => url === '/train'),
       mergeMap(url => {
-        return ArrayObservable.of<Action>(new LoadHangsAction())
+        return ArrayObservable.of<Action>(new LoadTodaysHangsAction())
           .pipe(
-            concat(this.hangService.getAllHangs()
+            concat(this.hangService.getTodaysHangs()
               .pipe(
-                map(h => new LoadHangsSuccessAction(h))
+                map(h => new LoadTodaysHangsSuccessAction(h))
               )
             )
           );

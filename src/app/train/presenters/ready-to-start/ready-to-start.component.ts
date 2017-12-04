@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isEqual } from 'lodash';
 
-import { HangActivitySettings } from '../../reducers/hang-activity-settings';
+import { HangActivitySettings } from '../../reducers/hang';
 
 @Component({
   selector: 'app-ready-to-start',
@@ -33,7 +33,7 @@ export class ReadyToStartComponent implements OnInit, OnChanges {
     });
 
     this.settingsForm.valueChanges.subscribe(v => {
-      if (this.settingsForm.valid && !isEqual(this.currentSettings, v)) {
+      if (this.settingsForm.valid && !isEqual(v, this.settings)) {
         this.settingsChange.emit(v);
       }
     });
@@ -44,10 +44,6 @@ export class ReadyToStartComponent implements OnInit, OnChanges {
       && !changes.settings.isFirstChange()) {
       this.settingsForm.patchValue(this.settings);
     }
-  }
-
-  private get currentSettings(): HangActivitySettings {
-    return this.settingsForm.value as HangActivitySettings;
   }
 
 }

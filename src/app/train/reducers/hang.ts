@@ -1,126 +1,210 @@
-import { HangActivitySettings } from './hang-activity-settings';
 import { Hang } from '../services/hang/hang';
 import {
   HangActions,
-  LOAD_HANGS,
-  LOAD_HANGS_SUCCESS,
-  SAVE_HANG,
-  SAVE_HANG_SUCCESS,
+  LOAD_TODAYS_HANGS,
+  LOAD_TODAYS_HANGS_SUCCESS,
+  SAVE_CURRENT_HANG_SESSION,
+  SAVE_CURRENT_HANG_SESSION_SUCCESS,
+  DISCARD_CURRENT_HANG_SESSION,
   START_HANG,
   HANG_TIME_PAST,
-  HANG_COMPLETE,
+  START_REST,
   REST_TIME_PAST,
-  REST_COMPLETE,
-  OVERLAY_UPDATE,
+  STOP_SESSION,
+  SET_OVERLAY_TEXT,
   SETTINGS_CHANGE,
-  SETTINGS_SET_DEFAULT
+  SET_DEFAULT_HANG_ACTIVITY_SETTINGS,
+  STOP_HANG,
+  SHOW_SESSION_SUMMARY
 } from '../actions/hang';
 
-export interface HangState {
-  isLoadingHangs: boolean;
-  isSavingHangStartedAt: string|null;
-  isHangRunning: boolean;
-  isResting: boolean;
-  isReadyToStart: boolean;
-  overlayText: string|null;
-  settings: HangActivitySettings;
-  hangs: Hang[];
-  todaysHangs: Hang[];
-  currentHangTime: number|null;
-  currentRestTime: number|null;
-  consecutiveHangs: number;
+export interface HangActivitySettings {
+  countdown: number;
+  endTimeBuffer: number;
+  maxPerRepetition: number;
+  autoStart: boolean;
+  pauseTime: number;
 }
 
-export const defaultSettings: HangActivitySettings = {
-  autoStart: true,
-  countdown: 5,
-  endTimeBuffer: 3,
-  maxPerRepetition: 5, // 60
-  pauseTime: 5 // 60
-};
+export interface HangSession {
+  start: Date|null;
+  end: Date|null;
+  hangs: Hang[];
+}
+
+export interface RunningHang {
+  start: Date|null;
+  currentTime: number|null;
+  maxTime: number;
+  lastHangTimeInSession: number|null;
+}
+
+export interface RunningRest {
+  currentTime: number|null;
+  totalRestTime: number;
+}
+
+export interface HangState {
+  display: 'ReadyToStart'|'Running'|'Resting'|'SessionSummary';
+  settings: HangActivitySettings;
+  runningHang: RunningHang;
+  resting: RunningRest;
+  currentSession: HangSession;
+  overlayText: string|null;
+  todaysHangs: Hang[];
+  isLoadingHangs: boolean;
+  isSavingCurrentSession: boolean;
+}
 
 export const initialState: HangState = {
-  isLoadingHangs: false,
-  settings: defaultSettings,
-  isSavingHangStartedAt: null,
+  display: 'ReadyToStart',
+  settings: {
+    autoStart: true,
+    countdown: 5,
+    endTimeBuffer: 3,
+    maxPerRepetition: 5, // 60
+    pauseTime: 5 // 60
+  },
+  runningHang: {
+    start: null,
+    currentTime: null,
+    lastHangTimeInSession: null,
+    maxTime: 0
+  },
+  resting: {
+    currentTime: null,
+    totalRestTime: 0
+  },
+  currentSession: {
+    start: null,
+    end: null,
+    hangs: []
+  },
   overlayText: null,
-  isHangRunning: false,
-  isReadyToStart: true,
-  isResting: false,
-  hangs: [],
   todaysHangs: [],
-  currentHangTime: null,
-  currentRestTime: null,
-  consecutiveHangs: 0
+  isLoadingHangs: false,
+  isSavingCurrentSession: false
 };
 
 export function reducer(state = initialState, action: HangActions): HangState {
   switch (action.type) {
-    case LOAD_HANGS:
+    case LOAD_TODAYS_HANGS:
       return {
         ...state,
         isLoadingHangs: true
       };
 
-    case LOAD_HANGS_SUCCESS: {
-      const today = new Date().toDateString();
-      const todaysHangs = action.payload.filter(h => new Date(h.start).toDateString() === today);
-
+    case LOAD_TODAYS_HANGS_SUCCESS:
       return {
         ...state,
         isLoadingHangs: false,
-        hangs: action.payload,
-        todaysHangs
+        todaysHangs: action.payload
+      };
+
+    case SAVE_CURRENT_HANG_SESSION:
+      return {
+        ...state,
+        isSavingCurrentSession: true
+      };
+
+    case SAVE_CURRENT_HANG_SESSION_SUCCESS:
+      return {
+        ...state,
+        isSavingCurrentSession: false,
+        todaysHangs: [...state.todaysHangs, ...action.payload]
+      };
+
+    case DISCARD_CURRENT_HANG_SESSION:
+      return {
+        ...state,
+        display: 'ReadyToStart'
+      };
+
+    case START_HANG: {
+      const isFirstRun = state.currentSession.hangs.length > 0;
+      const lastHangInSession = !isFirstRun
+        ? state.currentSession.hangs[state.currentSession.hangs.length - 1]
+        : null;
+      const lastHangTime = lastHangInSession
+        ? Math.round(
+            // Diff in milliseconds / 1000
+            Math.abs(new Date(lastHangInSession.end).getMilliseconds()
+            - new Date(lastHangInSession.start).getMilliseconds()) / 1000
+        )
+        : null;
+
+      return {
+        ...state,
+        display: 'Running',
+        runningHang: {
+          currentTime: 0,
+          lastHangTimeInSession: lastHangTime,
+          maxTime: state.settings.maxPerRepetition,
+          start: new Date()
+        },
+        currentSession: isFirstRun
+          ? {
+              start: new Date(),
+              end: null,
+              hangs: []
+          }
+          : state.currentSession
+
       };
     }
 
-    case SAVE_HANG: {
+    case HANG_TIME_PAST: {
+      const isHangComplete = state.runningHang.maxTime === action.payload;
+
       return {
         ...state,
-        isSavingHangStartedAt: action.payload.start
+        runningHang: {
+          ...state.runningHang,
+          currentTime: action.payload
+        },
+        currentSession: {
+          start: state.currentSession.start,
+          end: state.currentSession.end,
+          hangs: isHangComplete && state.runningHang.start
+            ? [...state.currentSession.hangs, {
+                  start: state.runningHang.start.toISOString(),
+                  end: new Date().toISOString()
+                }
+              ]
+            : state.currentSession.hangs
+        }
       };
     }
 
-    case SAVE_HANG_SUCCESS: {
-      const hangToUpdate = state.hangs.find(h => h.start === action.payload.start);
-      const updatedHangs = [...state.hangs.filter(h => h.start !== action.payload.start), action.payload];
-      const today = new Date().toDateString();
-      const todaysHangs = updatedHangs.filter(h => new Date(h.start).toDateString() === today);
+    case STOP_HANG: {
+      const correctedEnd = new Date(
+        action.payload.getMilliseconds() - state.settings.endTimeBuffer * 1000);
+      if (!state.runningHang.start || correctedEnd < state.runningHang.start) {
+        return state;
+      }
+
+      const newHang: Hang = {
+        start: state.runningHang.start.toISOString(),
+        end: correctedEnd.toISOString()
+      };
 
       return {
         ...state,
-        isSavingHangStartedAt: null,
-        hangs: updatedHangs,
-        todaysHangs
+        currentSession: {
+          ...state.currentSession,
+          hangs: [...state.currentSession.hangs, newHang]
+        }
       };
     }
 
-    case START_HANG:
+    case START_REST:
       return {
         ...state,
-        isHangRunning: true,
-        isReadyToStart: false,
-        isResting: false,
-        currentHangTime: 0
-      };
-
-    case HANG_TIME_PAST:
-      return {
-        ...state,
-        currentHangTime: action.payload,
-        overlayText: null
-      };
-
-    case HANG_COMPLETE:
-      return {
-        ...state,
-        hangs: [...state.hangs, action.payload],
-        todaysHangs: [...state.todaysHangs, action.payload],
-        isHangRunning: false,
-        isResting: state.settings.autoStart,
-        isReadyToStart: !state.settings.autoStart,
-        consecutiveHangs: state.settings.autoStart ? state.consecutiveHangs + 1 : 0,
-        currentRestTime: state.settings.autoStart ? state.settings.pauseTime : null
+        display: 'Resting',
+        resting: {
+          currentTime: 0,
+          totalRestTime: state.settings.pauseTime
+        }
       };
 
     case REST_TIME_PAST: {
@@ -142,22 +226,32 @@ export function reducer(state = initialState, action: HangActions): HangState {
 
       return {
         ...state,
-        currentRestTime: action.payload,
+        resting: {
+          currentTime: action.payload,
+          totalRestTime: state.resting.totalRestTime
+        },
         overlayText
       };
     }
 
-    case REST_COMPLETE:
+    case STOP_SESSION:
       return {
         ...state,
-        overlayText: 'GO!',
-        isResting: false,
-        isHangRunning: true,
-        isReadyToStart: false,
-        currentHangTime: 0
+        display: 'SessionSummary',
+        currentSession: {
+          start: state.currentSession.start,
+          end: new Date(),
+          hangs: state.display === 'Running' && state.runningHang.start
+            ? [...state.currentSession.hangs, {
+                  start: state.runningHang.start.toISOString(),
+                  end: new Date().toISOString()
+                }
+              ]
+            : state.currentSession.hangs
+        }
       };
 
-    case OVERLAY_UPDATE: {
+    case SET_OVERLAY_TEXT: {
       return {
         ...state,
         overlayText: action.payload
@@ -170,10 +264,16 @@ export function reducer(state = initialState, action: HangActions): HangState {
         settings: action.payload
       };
 
-    case SETTINGS_SET_DEFAULT:
+    case SET_DEFAULT_HANG_ACTIVITY_SETTINGS:
       return {
         ...state,
-        settings: defaultSettings
+        settings: { ...initialState.settings }
+      };
+
+    case SHOW_SESSION_SUMMARY:
+      return {
+        ...state,
+        display: 'SessionSummary'
       };
 
     default:

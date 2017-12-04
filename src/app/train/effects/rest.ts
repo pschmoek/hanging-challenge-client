@@ -8,31 +8,33 @@ import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { map, mergeMap, takeUntil, takeWhile, withLatestFrom } from 'rxjs/operators';
 
-import { HangCompleteAction, HANG_COMPLETE, RestCompleteAction, RestTimePastAction } from '../actions/hang';
 import { TrainState } from '../reducers/index';
+import {
+  StartRestAction,
+  START_REST,
+  STOP_SESSION,
+  RestTimePastAction,
+  StartHangAction
+} from '../actions/hang';
 
 @Injectable()
 export class RestEffects {
 
   @Effect()
-  rest$: Observable<Action> = this.actions$.ofType<HangCompleteAction>(HANG_COMPLETE)
+  rest$: Observable<Action> = this.actions$.ofType<StartRestAction>(START_REST)
     .pipe(
       withLatestFrom(this.store.select(s => s.train.hang.settings)),
       map(v => v[1]),
       mergeMap(settings => {
-        if (!settings.autoStart) {
-          return EmptyObservable.create();
-        }
-
-        const routerAction = this.actions$.ofType(ROUTER_NAVIGATION);
         return IntervalObservable.create(1000)
           .pipe(
             map(t => settings.pauseTime - t - 1),
-            takeUntil(routerAction),
+            takeUntil(this.actions$.ofType(ROUTER_NAVIGATION)),
+            takeUntil(this.actions$.ofType(STOP_SESSION)),
             takeWhile(v => v >= 0),
             mergeMap(t => {
               if (t === 0) {
-                return ArrayObservable.of<Action>(new RestCompleteAction());
+                return ArrayObservable.of<Action>(new RestTimePastAction(t), new StartHangAction({ showCountdown: false }));
               }
 
               return ArrayObservable.of<Action>(new RestTimePastAction(t));

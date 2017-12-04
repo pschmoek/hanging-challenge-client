@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <button [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
-    <button (click)="settingsToDefaultButtonClick.emit()" class="btn btn-info">Set Default Values</button>
+    <button type="button" [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
+    <button type="button" (click)="settingsToDefaultButtonClick.emit()" class="btn btn-info">Set Default Values</button>
   </form>
 </div>
