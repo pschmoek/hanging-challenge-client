@@ -17,10 +17,11 @@ export class HangService {
   ) { }
 
   getTodaysHangs(): Observable<Hang[]> {
+    const today = new Date().toISOString().split('T')[0];
     return this.store.select(s => s.auth.jwt).pipe(
       first(t => !!t),
       map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
-      switchMap(headers => this.http.get<Hang[]>('/api/hangs', { headers }))
+      switchMap(headers => this.http.get<Hang[]>(`/api/hangs/${today}`, { headers }))
     );
   }
 
@@ -28,7 +29,7 @@ export class HangService {
     return this.store.select(s => s.auth.jwt).pipe(
       first(t => !!t),
       map(token => new HttpHeaders({ authorization: 'Bearer ' + token })),
-      switchMap(headers => this.http.post<Hang[]>('/api/hangs', hangs, { headers }))
+      switchMap(headers => this.http.post<Hang[]>('/api/hangs', { hangs }, { headers }))
     );
   }
 
