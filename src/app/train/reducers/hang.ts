@@ -38,6 +38,7 @@ export interface RunningHang {
   currentTime: number|null;
   maxTime: number;
   lastHangTimeInSession: number|null;
+  countdown: number;
 }
 
 export interface RunningRest {
@@ -70,7 +71,8 @@ export const initialState: HangState = {
     start: null,
     currentTime: null,
     lastHangTimeInSession: null,
-    maxTime: 0
+    maxTime: 0,
+    countdown: 0
   },
   resting: {
     currentTime: null,
@@ -159,7 +161,8 @@ export function reducer(state = initialState, action: HangActions): HangState {
           currentTime: 0,
           lastHangTimeInSession: lastHangTime,
           maxTime: state.settings.maxPerRepetition,
-          start: new Date()
+          start: new Date(),
+          countdown: 0
         },
         currentSession: isFirstRun
           ? {
@@ -311,6 +314,15 @@ export function reducer(state = initialState, action: HangActions): HangState {
         currentSession: {
           ...state.currentSession,
           end: state.currentSession.end || new Date()
+        }
+      };
+
+    case COUNTDOWN_TIME_PAST:
+      return {
+        ...state,
+        runningHang: {
+          ...state.runningHang,
+          countdown: action.payload.secondsLeft
         }
       };
 

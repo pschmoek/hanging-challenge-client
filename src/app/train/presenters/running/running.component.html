@@ -15,6 +15,7 @@
   </div>
 
   <div class="progress running-bar" [class.no-last-run-margin]="!runningHang.lastHangTimeInSession">
+    <div class="countdown-box" *ngIf="runningHang.countdown !== 0"><strong class="text-success">{{ runningHang.countdown }}</strong></div>
     <div class="progress-bar bg-info" [style.width]="currentInPercent + '%'">{{ runningHang.currentTime }}s</div>
   </div>
 
