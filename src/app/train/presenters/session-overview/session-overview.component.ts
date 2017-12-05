@@ -10,7 +10,7 @@ export class SessionOverviewComponent {
 
   @Input() session: HangSession;
 
-  get getSessionSumInSeconds(): number {
+  get sessionSumInSeconds(): number {
     return this.session.hangs.reduce((pre, cur) => pre + Math.round(Math.abs(+new Date(cur.end) - +new Date(cur.start)) / 1000), 0);
   }
 
