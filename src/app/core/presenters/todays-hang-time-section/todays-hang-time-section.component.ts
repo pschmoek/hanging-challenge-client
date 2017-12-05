@@ -32,7 +32,7 @@ export class TodaysHangTimeSectionComponent {
       timeText = Math.round(this.hangTime / 60) + 'min and ' + this.hangTime % 60 + 's';
     }
 
-    return `You spent ${timeText} in ${this.hangCount } attempts hanging today.`;
+    return `You spent ${timeText} with ${this.hangCount } attempts hanging today.`;
   }
 
 }
