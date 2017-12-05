@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { RunningHang } from '../../reducers/hang';
 
 @Component({
@@ -12,6 +12,7 @@ export class RunningComponent {
   @Input() finishHangRunButtonEnabled: boolean;
   @Input() disableInteraction: boolean;
   @Output() finishHangRunButtonClick = new EventEmitter();
+  @Output() keydownSpace = new EventEmitter();
 
   get currentInPercent(): number {
     return RunningComponent.getPercent(this.runningHang.currentTime, this.runningHang.maxTime);
@@ -27,6 +28,13 @@ export class RunningComponent {
     }
 
     return Math.round(100 * current / max);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event && event.code === 'Space' && !this.disableInteraction) {
+      this.keydownSpace.emit();
+    }
   }
 
 }

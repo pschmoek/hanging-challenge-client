@@ -23,7 +23,8 @@
     *ngIf="displayRunning$ | async"
     [runningHang]="runningHang$ | async"
     [disableInteraction]="disableRunning$ | async"
-    (finishHangRunButtonClick)="onFinishHangRunButtonClick()">
+    (finishHangRunButtonClick)="onFinishHangRunButtonClick()"
+    (keydownSpace)="onKeydownSpaceInRunning()">
   </app-running>
 
   <app-session-overview

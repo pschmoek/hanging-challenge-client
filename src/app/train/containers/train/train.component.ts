@@ -85,4 +85,8 @@ export class TrainComponent implements OnInit {
     this.store.dispatch(new StopSessionAction());
   }
 
+  onKeydownSpaceInRunning() {
+    this.store.dispatch(new StopHangAction(new Date()));
+  }
+
 }
