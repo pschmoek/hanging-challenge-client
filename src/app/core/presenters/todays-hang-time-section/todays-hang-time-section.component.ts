@@ -13,25 +13,26 @@ export class TodaysHangTimeSectionComponent {
   @Input() hangCount: number;
   @Input() hangSeries: { name: string, value: number }[];
 
-  view: any[] = [930, 400];
-
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-
-  colorScheme = {
-    domain: ['#5AA454']
-  };
-
-  // line, area
-  autoScale = true;
-
   get chartData(): { name: string, series: { name: string, value: number }[] }[] {
     return [{
       name: 'Accumulated Hang Time',
       series: this.hangSeries
     }];
+  }
+
+  get summaryText(): string {
+    if (this.hangCount === 0) {
+      return 'No recorded hangs today.';
+    }
+
+    let timeText = '';
+    if (this.hangTime < 60) {
+      timeText = this.hangTime + 's';
+    } else {
+      timeText = Math.round(this.hangTime / 60) + 'min and ' + this.hangTime % 60 + 's';
+    }
+
+    return `You spent ${timeText} in ${this.hangCount } attempts hanging today.`;
   }
 
 }

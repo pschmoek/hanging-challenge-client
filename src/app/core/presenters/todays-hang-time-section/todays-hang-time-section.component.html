@@ -3,15 +3,13 @@
 <div class="chart-container">
   <ngx-charts-area-chart
     *ngIf="hangCount > 0"
-    [scheme]="colorScheme"
+    [scheme]="{ domain: ['#5AA454'] }"
     [results]="chartData"
-    [gradient]="gradient"
+    [gradient]="false"
     [xAxis]="true"
     [yAxis]="true"
-    [autoScale]="autoScale">
+    [autoScale]="true">
   </ngx-charts-area-chart>
 </div>
 
-<p class="lead">
-  You spent {{ hangTime }}s in {{ hangCount }} attempts hanging today.
-</p>
+<p class="lead"> {{ summaryText }} </p>
