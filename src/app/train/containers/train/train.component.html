@@ -1,24 +1,31 @@
-<app-ready-to-start
-  *ngIf="displayReadyToStart$ | async"
-  [playbuttonText]="playButtonText$ | async"
-  [settings]="settings$ | async"
-  (settingsChange)="onSettingsChange($event)"
-  (playButtonClick)="onPlayButtonClick()"
-  (settingsToDefaultButtonClick)="onSettingsToDefaultButtonClick()">
-</app-ready-to-start>
+<main class="container">
 
-<app-running
-  *ngIf="displayRunning$ | async"
-  [runningHang]="runningHang$ | async"
-  (abordRun)="onAbordRun()">
-</app-running>
+  <app-ready-to-start
+    *ngIf="displayReadyToStart$ | async"
+    [playbuttonText]="playButtonText$ | async"
+    [settings]="settings$ | async"
+    (settingsChange)="onSettingsChange($event)"
+    (playButtonClick)="onPlayButtonClick()"
+    (settingsToDefaultButtonClick)="onSettingsToDefaultButtonClick()">
+  </app-ready-to-start>
 
-<app-resting
-  *ngIf="displayResting$ | async"
-  [runningRest]="runningRest$ | async">
-</app-resting>
+  <app-running
+    *ngIf="displayRunning$ | async"
+    [runningHang]="runningHang$ | async"
+    [finishHangRunButtonEnabled]="finishHangButtonEnabled$ | async"
+    (finishHangRunButtonClick)="onFinishHangRunButtonClick()">
+  </app-running>
 
-<app-session-summary
-  *ngIf="displaySessionSummary$ | async"
-  [session]="session$ | async"> 
-</app-session-summary>
+  <app-resting
+    *ngIf="displayResting$ | async"
+    [runningRest]="runningRest$ | async">
+  </app-resting>
+
+  <app-session-summary
+    *ngIf="displaySessionSummary$ | async"
+    [session]="session$ | async"
+    (saveSessionButtonClick)="onSaveSessionButtonClick()"
+    (discardSessionButtonClick)="onDiscardSessionButtonClick()"> 
+  </app-session-summary>
+
+</main>

@@ -3,7 +3,14 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { TrainState, selectPlayButtonText } from '../../reducers/index';
-import { StartHangAction, SettingsChangeAction, StopHangAction, SetDefaultHangActivitySettings } from '../../actions/hang';
+import {
+  StartHangAction,
+  SettingsChangeAction,
+  StopHangAction,
+  SetDefaultHangActivitySettings,
+  SaveCurrentHangSessionAction,
+  DiscardCurrentHangSessionAction
+} from '../../actions/hang';
 import { map } from 'rxjs/operators';
 import { RunningHang, RunningRest, HangSession, HangActivitySettings } from '../../reducers/hang';
 
@@ -22,6 +29,7 @@ export class TrainComponent implements OnInit {
   displaySessionSummary$: Observable<boolean>;
   // dialog data
   playButtonText$: Observable<string>;
+  finishHangButtonEnabled$: Observable<boolean>;
   settings$: Observable<HangActivitySettings>;
   runningHang$: Observable<RunningHang>;
   runningRest$: Observable<RunningRest>;
@@ -32,10 +40,11 @@ export class TrainComponent implements OnInit {
   ngOnInit() {
     // dialog to show
     this.displayReadyToStart$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'ReadyToStart'));
-    this.displayRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running'));
+    this.displayRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running' || d === 'Resting'));
     this.displayResting$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
     this.displaySessionSummary$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'SessionSummary'));
     // dialog data
+    this.finishHangButtonEnabled$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running'));
     this.playButtonText$ = this.store.select(selectPlayButtonText);
     this.settings$ = this.store.select(s => s.train.hang.settings);
     this.runningHang$ = this.store.select(s => s.train.hang.runningHang);
@@ -55,8 +64,16 @@ export class TrainComponent implements OnInit {
     this.store.dispatch(new SetDefaultHangActivitySettings());
   }
 
-  onAbordRun() {
+  onFinishHangRunButtonClick() {
     this.store.dispatch(new StopHangAction(new Date()));
+  }
+
+  onSaveSessionButtonClick() {
+    this.store.dispatch(new SaveCurrentHangSessionAction());
+  }
+
+  onDiscardSessionButtonClick() {
+    this.store.dispatch(new DiscardCurrentHangSessionAction());
   }
 
 }

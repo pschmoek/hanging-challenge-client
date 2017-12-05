@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { HangSession } from '../../reducers/hang';
 
@@ -10,5 +10,7 @@ import { HangSession } from '../../reducers/hang';
 export class SessionSummaryComponent {
 
   @Input() session: HangSession;
+  @Output() saveSessionButtonClick = new EventEmitter();
+  @Output() discardSessionButtonClick = new EventEmitter();
 
 }

@@ -31,8 +31,6 @@ export class LoadTodaysHangsSuccessAction implements Action {
 
 export class SaveCurrentHangSessionAction implements Action {
   readonly type = SAVE_CURRENT_HANG_SESSION;
-
-  constructor(public payload: HangSession) { }
 }
 
 export class SaveCurrentHangSessionSuccessAction implements Action {

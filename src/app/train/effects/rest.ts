@@ -14,7 +14,10 @@ import {
   START_REST,
   STOP_SESSION,
   RestTimePastAction,
-  StartHangAction
+  StartHangAction,
+  StopHangAction,
+  STOP_HANG,
+  ShowSessionSummary
 } from '../actions/hang';
 
 @Injectable()
@@ -41,6 +44,17 @@ export class RestEffects {
             })
           );
       })
+    );
+
+  @Effect()
+  startRestAfterHangStop$: Observable<Action> = this.actions$.ofType<StopHangAction>(STOP_HANG)
+    .pipe(
+      withLatestFrom(this.store.select(s => s.train.hang.settings)),
+      map(v => v[1]),
+      mergeMap(settings => settings.autoStart
+        ? ArrayObservable.of<Action>(new StartRestAction())
+        : ArrayObservable.of<Action>(new ShowSessionSummary())
+      )
     );
 
   constructor(

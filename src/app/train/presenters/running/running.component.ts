@@ -9,7 +9,8 @@ import { RunningHang } from '../../reducers/hang';
 export class RunningComponent {
 
   @Input() runningHang: RunningHang;
-  @Output() abordRun = new EventEmitter();
+  @Input() finishHangRunButtonEnabled: boolean;
+  @Output() finishHangRunButtonClick = new EventEmitter();
 
   get currentInPercent(): number {
     return RunningComponent.getPercent(this.runningHang.currentTime, this.runningHang.maxTime);

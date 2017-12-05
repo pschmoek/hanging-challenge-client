@@ -1,42 +1,39 @@
-<div class=container>
+<h2>Settings</h2>
 
-  <h2>Settings</h2>
-  
-  <form novalidate [formGroup]="settingsForm">
+<form novalidate [formGroup]="settingsForm">
 
-    <div class=row>
-      <div class="form-group col-md-3">
-        <label for="maxRepDuration">Target Hang Time</label>
-        <input type="number" class="form-control" id="maxRepDuration" formControlName="maxPerRepetition">
-      </div>
-
-      <div class="form-group col-md-3">
-        <label for="pauseDuration">Rest Time</label>
-        <input type="number" class="form-control" id="pauseDuration" formControlName="pauseTime">
-      </div>
-
-      <div class="form-group col-md-3">
-        <label for="countdownTime">Initial Countdown</label>
-        <input type="number" class="form-control" id="countdownTime" formControlName="countdown">        
-      </div>
-
-      <div class="form-group col-md-3">
-        <label for="endTimeBuffer">End Time Buffer</label>
-        <input type="number" class="form-control" id="endTimeBuffer" formControlName="endTimeBuffer">        
-      </div>
+  <div class=row>
+    <div class="form-group col-md-3">
+      <label for="maxRepDuration">Target Hang Time</label>
+      <input type="number" class="form-control" id="maxRepDuration" formControlName="maxPerRepetition">
     </div>
 
-    <div class=row>
-      <div class="form-group col-md-auto">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" formControlName="autoStart"> Multiple repetitions with rest in between
-          </label>
-        </div>
-      </div>
+    <div class="form-group col-md-3">
+      <label for="pauseDuration">Rest Time</label>
+      <input type="number" class="form-control" id="pauseDuration" formControlName="pauseTime">
     </div>
 
-    <button type="button" [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
-    <button type="button" (click)="settingsToDefaultButtonClick.emit()" class="btn btn-info">Set Default Values</button>
-  </form>
-</div>
+    <div class="form-group col-md-3">
+      <label for="countdownTime">Initial Countdown</label>
+      <input type="number" class="form-control" id="countdownTime" formControlName="countdown">        
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="endTimeBuffer">End Time Buffer</label>
+      <input type="number" class="form-control" id="endTimeBuffer" formControlName="endTimeBuffer">        
+    </div>
+  </div>
+
+  <div class=row>
+    <div class="form-group col-md-auto">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" formControlName="autoStart"> Multiple repetitions with rest in between
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" [disabled]="settingsForm.invalid" (click)="playButtonClick.emit()" class="btn btn-success">{{ playbuttonText }}</button>
+  <button type="button" (click)="settingsToDefaultButtonClick.emit()" class="btn btn-info">Set Default Values</button>
+</form>

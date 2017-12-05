@@ -61,7 +61,7 @@ export const initialState: HangState = {
   settings: {
     autoStart: true,
     countdown: 5,
-    endTimeBuffer: 3,
+    endTimeBuffer: 2,
     maxPerRepetition: 5, // 60
     pauseTime: 5 // 60
   },
@@ -159,7 +159,8 @@ export function reducer(state = initialState, action: HangActions): HangState {
         ...state,
         runningHang: {
           ...state.runningHang,
-          currentTime: action.payload
+          currentTime: action.payload,
+          lastHangTimeInSession: isHangComplete ? action.payload : state.runningHang.lastHangTimeInSession
         },
         currentSession: {
           start: state.currentSession.start,
@@ -186,8 +187,15 @@ export function reducer(state = initialState, action: HangActions): HangState {
         end: correctedEnd.toISOString()
       };
 
+      const correctedRunTime = Math.round(Math.abs(+new Date(newHang.end) - +new Date(newHang.start)) / 1000);
+
       return {
         ...state,
+        runningHang: {
+          ...state.runningHang,
+          lastHangTimeInSession: correctedRunTime,
+          currentTime: correctedRunTime
+        },
         currentSession: {
           ...state.currentSession,
           hangs: [...state.currentSession.hangs, newHang]

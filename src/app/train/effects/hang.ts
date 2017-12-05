@@ -6,6 +6,7 @@ import { map, mergeMap, takeUntil, withLatestFrom, takeWhile } from 'rxjs/operat
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 
 import {
   StartHangAction,
@@ -17,7 +18,6 @@ import {
   ShowSessionSummary
 } from '../actions/hang';
 import { TrainState } from '../reducers/index';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 
 @Injectable()
 export class HangEffects {
