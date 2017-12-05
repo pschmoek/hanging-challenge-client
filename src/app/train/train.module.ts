@@ -18,6 +18,7 @@ import { SaveSessionEffect } from './effects/save-session';
 import { SessionOverviewComponent } from './presenters/session-overview/session-overview.component';
 import { HangRunComponent } from './presenters/hang-run/hang-run.component';
 import { SessionToolbarComponent } from './presenters/session-toolbar/session-toolbar.component';
+import { RouteToDashboardEffect } from './effects/route-to-dashboard';
 
 export const COMPONENTS = [
   TrainComponent,
@@ -38,7 +39,7 @@ export const COMPONENTS = [
     TrainRoutingModule,
     ReactiveFormsModule,
     StoreModule.forFeature('train', trainReducers),
-    EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveSessionEffect])
+    EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveSessionEffect, RouteToDashboardEffect])
   ],
   providers: []
 })
