@@ -5,14 +5,13 @@ import { first, map, switchMap, finalize, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
 import { Hang } from './hang';
-import { TrainState } from '../../reducers/index';
-import { selectHttpHeaders } from '../../../root-reducer';
+import { selectHttpHeaders, AppState } from '../../../root-reducer';
 
 @Injectable()
 export class HangService {
 
   constructor(
-    private store: Store<TrainState>,
+    private store: Store<AppState>,
     private http: HttpClient
   ) { }
 

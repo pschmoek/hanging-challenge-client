@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Hang } from '../../services/hang/hang';
+
+import { Hang } from '../../../core/services/hang/hang';
 
 @Component({
   selector: 'app-hang-run',

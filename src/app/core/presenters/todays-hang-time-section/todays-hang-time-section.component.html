@@ -1,0 +1,17 @@
+<h2>Today</h2>
+
+<div class="chart-container">
+  <ngx-charts-area-chart
+    *ngIf="hangCount > 0"
+    [scheme]="colorScheme"
+    [results]="chartData"
+    [gradient]="gradient"
+    [xAxis]="true"
+    [yAxis]="true"
+    [autoScale]="autoScale">
+  </ngx-charts-area-chart>
+</div>
+
+<p class="lead">
+  You spent {{ hangTime }}s in {{ hangCount }} attempts hanging today.
+</p>

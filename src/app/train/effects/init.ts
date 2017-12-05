@@ -9,8 +9,8 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 
 import { TrainState } from '../reducers/index';
-import { HangService } from '../services/hang/hang.service';
 import { LoadTodaysHangsAction, LoadTodaysHangsSuccessAction } from '../actions/hang';
+import { HangService } from '../../core/services/hang/hang.service';
 
 @Injectable()
 export class InitEffect {

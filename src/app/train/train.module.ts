@@ -12,7 +12,6 @@ import { trainReducers } from './reducers/index';
 import { SharedModule } from '../shared/shared.module';
 import { HangEffects } from './effects/hang';
 import { RestEffects } from './effects/rest';
-import { HangService } from './services/hang/hang.service';
 import { InitEffect } from './effects/init';
 import { SessionSummaryComponent } from './presenters/session-summary/session-summary.component';
 import { SaveSessionEffect } from './effects/save-session';
@@ -41,6 +40,6 @@ export const COMPONENTS = [
     StoreModule.forFeature('train', trainReducers),
     EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveSessionEffect])
   ],
-  providers: [HangService]
+  providers: []
 })
 export class TrainModule { }

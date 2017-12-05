@@ -1,4 +1,3 @@
-import { Hang } from '../services/hang/hang';
 import {
   HangActions,
   LOAD_TODAYS_HANGS,
@@ -17,6 +16,7 @@ import {
   STOP_HANG,
   SHOW_SESSION_SUMMARY
 } from '../actions/hang';
+import { Hang } from '../../core/services/hang/hang';
 
 export interface HangActivitySettings {
   countdown: number;

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { Hang } from '../services/hang/hang';
 import { HangSession, HangActivitySettings } from '../reducers/hang';
+import { Hang } from '../../core/services/hang/hang';
 
 export const LOAD_TODAYS_HANGS = '[Hang] Load Todays Hangs';
 export const LOAD_TODAYS_HANGS_SUCCESS = '[Hang] Load Todays Hangs Success';
