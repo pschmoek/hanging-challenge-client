@@ -1,0 +1,11 @@
+<div class=sum-container *ngIf="getSessionSumInSeconds !== 0">
+  <strong>{{ getSessionSumInSeconds }}s</strong>
+</div>
+
+<div class="session-container">
+  <app-hang-run
+    *ngFor="let hang of session.hangs; let i = index"
+    [hang]="hang"
+    [indexInSession]="i">
+  </app-hang-run>
+</div>

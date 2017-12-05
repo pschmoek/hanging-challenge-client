@@ -112,13 +112,31 @@ export function reducer(state = initialState, action: HangActions): HangState {
         ...state,
         display: 'ReadyToStart',
         isSavingCurrentSession: false,
-        todaysHangs: [...state.todaysHangs, ...action.payload]
+        todaysHangs: [...state.todaysHangs, ...action.payload],
+        currentSession: {
+          ...initialState.currentSession
+        },
+        runningHang: {
+          ...initialState.runningHang
+        },
+        resting: {
+          ...initialState.resting
+        }
       };
 
     case DISCARD_CURRENT_HANG_SESSION:
       return {
         ...state,
-        display: 'ReadyToStart'
+        display: 'ReadyToStart',
+        currentSession: {
+          ...initialState.currentSession
+        },
+        runningHang: {
+          ...initialState.runningHang
+        },
+        resting: {
+          ...initialState.resting
+        }
       };
 
     case START_HANG: {

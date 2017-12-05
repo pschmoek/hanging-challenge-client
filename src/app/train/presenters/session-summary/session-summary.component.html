@@ -1,6 +1,9 @@
 <div class="jumbotron">
   <h3>Session Summary</h3>
-  <div>{{ session | json }}</div>
+
+  <app-session-overview
+    [session]="session">
+  </app-session-overview>
   
   <button type="button" class="btn btn-success" (click)="saveSessionButtonClick.emit()">Save</button>
   <button type="button" class="btn btn-danger" (click)="discardSessionButtonClick.emit()">Discard</button>

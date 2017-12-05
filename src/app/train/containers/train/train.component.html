@@ -1,5 +1,10 @@
 <main class="container">
 
+  <app-session-toolbar
+    *ngIf="displaySessionOverview$ | async"
+    (stopSessionButtonClick)="onStopSessionButtonClick()">
+  </app-session-toolbar>
+
   <app-ready-to-start
     *ngIf="displayReadyToStart$ | async"
     [playbuttonText]="playButtonText$ | async"
@@ -20,6 +25,11 @@
     [disableInteraction]="disableRunning$ | async"
     (finishHangRunButtonClick)="onFinishHangRunButtonClick()">
   </app-running>
+
+  <app-session-overview
+    *ngIf="displaySessionOverview$ | async"
+    [session]="session$ | async">
+  </app-session-overview>
 
   <app-session-summary
     *ngIf="displaySessionSummary$ | async"

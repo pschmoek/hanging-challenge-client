@@ -16,13 +16,19 @@ import { HangService } from './services/hang/hang.service';
 import { InitEffect } from './effects/init';
 import { SessionSummaryComponent } from './presenters/session-summary/session-summary.component';
 import { SaveSessionEffect } from './effects/save-session';
+import { SessionOverviewComponent } from './presenters/session-overview/session-overview.component';
+import { HangRunComponent } from './presenters/hang-run/hang-run.component';
+import { SessionToolbarComponent } from './presenters/session-toolbar/session-toolbar.component';
 
 export const COMPONENTS = [
   TrainComponent,
   ReadyToStartComponent,
   RestingComponent,
   RunningComponent,
-  SessionSummaryComponent
+  SessionSummaryComponent,
+  SessionOverviewComponent,
+  HangRunComponent,
+  SessionToolbarComponent
 ];
 
 @NgModule({

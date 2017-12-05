@@ -9,7 +9,8 @@ import {
   StopHangAction,
   SetDefaultHangActivitySettings,
   SaveCurrentHangSessionAction,
-  DiscardCurrentHangSessionAction
+  DiscardCurrentHangSessionAction,
+  StopSessionAction
 } from '../../actions/hang';
 import { map } from 'rxjs/operators';
 import { RunningHang, RunningRest, HangSession, HangActivitySettings } from '../../reducers/hang';
@@ -27,6 +28,7 @@ export class TrainComponent implements OnInit {
   displayRunning$: Observable<boolean>;
   displayResting$: Observable<boolean>;
   displaySessionSummary$: Observable<boolean>;
+  displaySessionOverview$: Observable<boolean>;
   // dialog data
   playButtonText$: Observable<string>;
   disableRunning$: Observable<boolean>;
@@ -43,6 +45,9 @@ export class TrainComponent implements OnInit {
     this.displayRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running' || d === 'Resting'));
     this.displayResting$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
     this.displaySessionSummary$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'SessionSummary'));
+    this.displaySessionOverview$ = this.store.select(s => s.train.hang).pipe(
+      map(h => h.settings.autoStart && h.display === 'Running' || h.display === 'Resting')
+    );
     // dialog data
     this.disableRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
     this.playButtonText$ = this.store.select(selectPlayButtonText);
@@ -74,6 +79,10 @@ export class TrainComponent implements OnInit {
 
   onDiscardSessionButtonClick() {
     this.store.dispatch(new DiscardCurrentHangSessionAction());
+  }
+
+  onStopSessionButtonClick() {
+    this.store.dispatch(new StopSessionAction());
   }
 
 }
