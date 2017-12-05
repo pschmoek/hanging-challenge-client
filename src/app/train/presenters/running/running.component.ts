@@ -33,6 +33,7 @@ export class RunningComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event && event.code === 'Space' && !this.disableInteraction) {
+      event.preventDefault();
       this.keydownSpace.emit();
     }
   }
