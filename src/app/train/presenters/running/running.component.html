@@ -1,14 +1,23 @@
-<h2>Hanging</h2>
+<div class="jumbotron" [class.disabled]="disableInteraction">
 
-<div *ngIf="runningHang.lastHangTimeInSession" class="last-hang-container">
-  <div class="last-time-container"><span class="text-warning">Last Hang: {{ runningHang.lastHangTimeInSession }}s</span></div>
-  <div class="progress last-time-bar">
-    <div class="progress-bar bg-warning" [style.width]="lastRunInPercent + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <h3 [class.text-muted]="disableInteraction">Hanging</h3>
+
+  <div *ngIf="runningHang.lastHangTimeInSession" class="last-hang-container">
+    <div class="last-time-container">
+      <span [ngClass]="{'text-warning':!disableInteraction, 'text-muted': disableInteraction}">Last Hang: {{ runningHang.lastHangTimeInSession }}s</span>
+    </div>
+    <div class="progress last-time-bar">
+      <div class="progress-bar"
+        [ngClass]="{ 'bg-warning': !disableInteraction, 'bg-secondary': disableInteraction }"
+        [style.width]="lastRunInPercent + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="progress running-bar" [class.no-last-run-margin]="!runningHang.lastHangTimeInSession">
-  <div class="progress-bar bg-info" [style.width]="currentInPercent + '%'">{{ runningHang.currentTime }}s</div>
-</div>
+  <div class="progress running-bar" [class.no-last-run-margin]="!runningHang.lastHangTimeInSession">
+    <div class="progress-bar bg-info" [style.width]="currentInPercent + '%'">{{ runningHang.currentTime }}s</div>
+  </div>
 
-<button type="button" [disabled]="!finishHangRunButtonEnabled" class="btn btn-success btn-md btn-block" (click)="finishHangRunButtonClick.emit()">Finish Hang</button>
+  <button type="button" [disabled]="disableInteraction" class="btn btn-success btn-md btn-block" (click)="finishHangRunButtonClick.emit()">Finish Hang</button>
+
+</div>

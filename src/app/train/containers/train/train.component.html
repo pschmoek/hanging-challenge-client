@@ -9,17 +9,17 @@
     (settingsToDefaultButtonClick)="onSettingsToDefaultButtonClick()">
   </app-ready-to-start>
 
-  <app-running
-    *ngIf="displayRunning$ | async"
-    [runningHang]="runningHang$ | async"
-    [finishHangRunButtonEnabled]="finishHangButtonEnabled$ | async"
-    (finishHangRunButtonClick)="onFinishHangRunButtonClick()">
-  </app-running>
-
   <app-resting
     *ngIf="displayResting$ | async"
     [runningRest]="runningRest$ | async">
   </app-resting>
+
+  <app-running
+    *ngIf="displayRunning$ | async"
+    [runningHang]="runningHang$ | async"
+    [disableInteraction]="disableRunning$ | async"
+    (finishHangRunButtonClick)="onFinishHangRunButtonClick()">
+  </app-running>
 
   <app-session-summary
     *ngIf="displaySessionSummary$ | async"

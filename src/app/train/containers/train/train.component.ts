@@ -29,7 +29,7 @@ export class TrainComponent implements OnInit {
   displaySessionSummary$: Observable<boolean>;
   // dialog data
   playButtonText$: Observable<string>;
-  finishHangButtonEnabled$: Observable<boolean>;
+  disableRunning$: Observable<boolean>;
   settings$: Observable<HangActivitySettings>;
   runningHang$: Observable<RunningHang>;
   runningRest$: Observable<RunningRest>;
@@ -44,7 +44,7 @@ export class TrainComponent implements OnInit {
     this.displayResting$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
     this.displaySessionSummary$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'SessionSummary'));
     // dialog data
-    this.finishHangButtonEnabled$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running'));
+    this.disableRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
     this.playButtonText$ = this.store.select(selectPlayButtonText);
     this.settings$ = this.store.select(s => s.train.hang.settings);
     this.runningHang$ = this.store.select(s => s.train.hang.runningHang);

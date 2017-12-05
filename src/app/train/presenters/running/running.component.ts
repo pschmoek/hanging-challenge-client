@@ -10,6 +10,7 @@ export class RunningComponent {
 
   @Input() runningHang: RunningHang;
   @Input() finishHangRunButtonEnabled: boolean;
+  @Input() disableInteraction: boolean;
   @Output() finishHangRunButtonClick = new EventEmitter();
 
   get currentInPercent(): number {

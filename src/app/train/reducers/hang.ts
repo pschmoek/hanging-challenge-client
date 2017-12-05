@@ -110,6 +110,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
     case SAVE_CURRENT_HANG_SESSION_SUCCESS:
       return {
         ...state,
+        display: 'ReadyToStart',
         isSavingCurrentSession: false,
         todaysHangs: [...state.todaysHangs, ...action.payload]
       };
