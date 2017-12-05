@@ -159,7 +159,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
         ...state,
         runningHang: {
           ...state.runningHang,
-          currentTime: action.payload,
+          currentTime: isHangComplete ? 0 : action.payload,
           lastHangTimeInSession: isHangComplete ? action.payload : state.runningHang.lastHangTimeInSession
         },
         currentSession: {
@@ -179,7 +179,13 @@ export function reducer(state = initialState, action: HangActions): HangState {
     case STOP_HANG: {
       const correctedEnd = new Date(+action.payload - state.settings.endTimeBuffer * 1000);
       if (!state.runningHang.start || correctedEnd < state.runningHang.start) {
-        return state;
+        return {
+          ...state,
+          runningHang: {
+            ...state.runningHang,
+            currentTime: 0
+          }
+        };
       }
 
       const newHang: Hang = {
@@ -194,7 +200,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
         runningHang: {
           ...state.runningHang,
           lastHangTimeInSession: correctedRunTime,
-          currentTime: correctedRunTime
+          currentTime: 0
         },
         currentSession: {
           ...state.currentSession,
@@ -208,7 +214,7 @@ export function reducer(state = initialState, action: HangActions): HangState {
         ...state,
         display: 'Resting',
         resting: {
-          currentTime: 0,
+          currentTime: state.settings.pauseTime,
           totalRestTime: state.settings.pauseTime
         }
       };
