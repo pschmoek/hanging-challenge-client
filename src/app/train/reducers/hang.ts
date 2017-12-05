@@ -14,7 +14,8 @@ import {
   SETTINGS_CHANGE,
   SET_DEFAULT_HANG_ACTIVITY_SETTINGS,
   STOP_HANG,
-  SHOW_SESSION_SUMMARY
+  SHOW_SESSION_SUMMARY,
+  COUNTDOWN_TIME_PAST
 } from '../actions/hang';
 import { Hang } from '../../core/services/hang/hang';
 
@@ -173,11 +174,13 @@ export function reducer(state = initialState, action: HangActions): HangState {
 
     case HANG_TIME_PAST: {
       const isHangComplete = state.runningHang.maxTime === action.payload;
+      const isStart = action.payload === 0;
 
       return {
         ...state,
         runningHang: {
           ...state.runningHang,
+          start: isStart ? new Date() : state.runningHang.start,
           currentTime: isHangComplete ? 0 : action.payload,
           lastHangTimeInSession: isHangComplete ? action.payload : state.runningHang.lastHangTimeInSession
         },

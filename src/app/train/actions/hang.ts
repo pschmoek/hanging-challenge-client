@@ -18,6 +18,7 @@ export const SET_OVERLAY_TEXT = '[Hang] Set Overlay Text';
 export const SETTINGS_CHANGE = '[Hang] Settings Change';
 export const SET_DEFAULT_HANG_ACTIVITY_SETTINGS = '[Hang] Set Default Hang Activity Settings';
 export const SHOW_SESSION_SUMMARY = '[Hang] Show Session Summary';
+export const COUNTDOWN_TIME_PAST = '[Hang] Countdown Time Past';
 
 export class LoadTodaysHangsAction implements Action {
   readonly type = LOAD_TODAYS_HANGS;
@@ -95,6 +96,12 @@ export class ShowSessionSummary implements Action {
   readonly type = SHOW_SESSION_SUMMARY;
 }
 
+export class CountdownTimePastAction implements Action {
+  readonly type = COUNTDOWN_TIME_PAST;
+
+  constructor(public payload: { secondsLeft: number }) { }
+}
+
 export type HangActions = LoadTodaysHangsAction
                         | LoadTodaysHangsSuccessAction
                         | SaveCurrentHangSessionAction
@@ -109,4 +116,5 @@ export type HangActions = LoadTodaysHangsAction
                         | SetOverlayTextAction
                         | SettingsChangeAction
                         | SetDefaultHangActivitySettings
-                        | ShowSessionSummary;
+                        | ShowSessionSummary
+                        | CountdownTimePastAction;
