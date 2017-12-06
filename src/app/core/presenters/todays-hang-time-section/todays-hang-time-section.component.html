@@ -1,8 +1,7 @@
 <h2>Today</h2>
 
-<div class="chart-container">
+<div class="chart-container" *ngIf="hangCount > 0">
   <ngx-charts-area-chart
-    *ngIf="hangCount > 0"
     [scheme]="{ domain: ['#5AA454'] }"
     [results]="chartData"
     [gradient]="false"
