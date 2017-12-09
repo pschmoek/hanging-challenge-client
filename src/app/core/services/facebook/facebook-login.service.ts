@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { FacebookTokenReceived } from '../../actions/auth';
 import { AppState } from '../../../root-reducer';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class FacebookLoginService {
@@ -12,7 +13,7 @@ export class FacebookLoginService {
   ) { }
 
   init() {
-    FB.init({ appId: '136337630400288', cookie: true, version: 'v2.11', xfbml: false });
+    FB.init({ appId: environment.facebookAppId, cookie: true, version: 'v2.11', xfbml: false });
     FB.getLoginStatus(() => {});
     FB.Event.subscribe('auth.statusChange', this.onLoginStatus.bind(this));
   }
