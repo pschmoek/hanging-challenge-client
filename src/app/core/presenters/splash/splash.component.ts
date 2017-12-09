@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-splash',
   template: `
-<div class="jumbotron">
+<div class="splash">
   <div class="container">
     <h1 class="display-3">Hanging Challenge</h1>
     <p class="lead">Please login.</p>
@@ -13,8 +13,7 @@ import { Component, Input } from '@angular/core';
   </div>
 </div>
   `,
-  styles: [`
-  `]
+  styleUrls: ['./splash.component.less']
 })
 export class SplashComponent {
 
