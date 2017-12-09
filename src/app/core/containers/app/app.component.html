@@ -1,5 +1,5 @@
 <app-header-toolbar
-  *ngIf="userName$ | async"
+  *ngIf="showApp$ | async"
   [userName]="userName$ | async"
   [currentUrl]="currentUrl$ | async"
   (titleClick)="onTitleClick()"
