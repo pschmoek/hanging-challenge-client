@@ -19,7 +19,7 @@ import {
   ShowSessionSummary,
   CountdownTimePastAction
 } from '../actions/hang';
-import { TrainState } from '../reducers/index';
+import { AppState } from '../reducers/index';
 
 @Injectable()
 export class HangEffects {
@@ -69,7 +69,7 @@ export class HangEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<TrainState>
+    private store: Store<AppState>
   ) { }
 
 }

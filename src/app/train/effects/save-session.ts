@@ -6,7 +6,7 @@ import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { Effect } from '@ngrx/effects';
 
 import { SAVE_CURRENT_HANG_SESSION, SaveCurrentHangSessionAction, SaveCurrentHangSessionSuccessAction } from '../actions/hang';
-import { TrainState } from '../reducers/index';
+import { AppState } from '../reducers/index';
 import { HangService } from '../../core/services/hang/hang.service';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class SaveSessionEffect {
   constructor(
     private actions$: Actions,
     private hangService: HangService,
-    private store: Store<TrainState>
+    private store: Store<AppState>
   ) { }
 
 }

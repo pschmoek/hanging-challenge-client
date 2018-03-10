@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store';
+import { ActionReducerMap, createSelector, ActionReducer } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -13,9 +13,9 @@ export interface AppState {
 }
 
 export const rootReducer: ActionReducerMap<AppState> = {
-  auth: fromAuth.reducer,
-  router: routerReducer,
-  dashboard: dashboardReducer
+  auth: fromAuth.reducer as ActionReducer<fromAuth.State>,
+  router: routerReducer as ActionReducer<RouterReducerState<RouterStateUrl>>,
+  dashboard: dashboardReducer as ActionReducer<DashboardState>
 };
 
 export const getAuthState = (state: AppState) => state.auth;

@@ -1,17 +1,23 @@
-import { createSelector } from '@ngrx/store';
+import { createSelector, ActionReducerMap, ActionReducer, createFeatureSelector } from '@ngrx/store';
 
 import { HangState, reducer } from './hang';
 import { AppState } from '../../root-reducer';
 
-export interface TrainState extends AppState {
-  train: {
-    hang: HangState;
-  };
+export interface AppState extends AppState {
+  train: TrainState;
 }
 
-export const trainReducers = {
-  hang: reducer
+export interface TrainState {
+  hang: HangState;
+}
+
+export const trainReducers: ActionReducerMap<TrainState> = {
+  hang: reducer as ActionReducer<HangState>
 };
 
-export const selectPlayButtonText = createSelector((state: TrainState) => state.train.hang.settings,
-  s => s.autoStart ? 'Start Hang Training' : 'Start Single Hang');
+export const getTrainState = createFeatureSelector<TrainState>('train');
+
+export const selectPlayButtonText = createSelector(
+  getTrainState,
+  state => state.hang.settings.autoStart ? 'Start Hang Training' : 'Start Single Hang'
+);

@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
-import { TrainState, selectPlayButtonText } from '../../reducers/index';
+import { selectPlayButtonText, AppState } from '../../reducers/index';
 import {
   StartHangAction,
   SettingsChangeAction,
@@ -13,7 +12,7 @@ import {
   StopSessionAction
 } from '../../actions/hang';
 import { map } from 'rxjs/operators';
-import { RunningHang, RunningRest, HangSession, HangActivitySettings } from '../../reducers/hang';
+import { HangActivitySettings } from '../../reducers/hang';
 
 @Component({
   selector: 'app-train',
@@ -21,41 +20,25 @@ import { RunningHang, RunningRest, HangSession, HangActivitySettings } from '../
   templateUrl: './train.component.html',
   styleUrls: ['./train.component.less']
 })
-export class TrainComponent implements OnInit {
+export class TrainComponent {
 
   // dialog to show
-  displayReadyToStart$: Observable<boolean>;
-  displayRunning$: Observable<boolean>;
-  displayResting$: Observable<boolean>;
-  displaySessionSummary$: Observable<boolean>;
-  displaySessionOverview$: Observable<boolean>;
+  displayReadyToStart$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'ReadyToStart'));
+  displayRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running' || d === 'Resting'));
+  displayResting$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
+  displaySessionSummary$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'SessionSummary'));
+  displaySessionOverview$ = this.store.select(s => s.train.hang).pipe(
+    map(h => h.settings.autoStart && h.display === 'Running' || h.display === 'Resting')
+  );
   // dialog data
-  playButtonText$: Observable<string>;
-  disableRunning$: Observable<boolean>;
-  settings$: Observable<HangActivitySettings>;
-  runningHang$: Observable<RunningHang>;
-  runningRest$: Observable<RunningRest>;
-  session$: Observable<HangSession>;
+  disableRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
+  playButtonText$ = this.store.select(selectPlayButtonText);
+  settings$ = this.store.select(s => s.train.hang.settings);
+  runningHang$ = this.store.select(s => s.train.hang.runningHang);
+  runningRest$ = this.store.select(s => s.train.hang.resting);
+  session$ = this.store.select(s => s.train.hang.currentSession);
 
-  constructor(private store: Store<TrainState>) { }
-
-  ngOnInit() {
-    // dialog to show
-    this.displayReadyToStart$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'ReadyToStart'));
-    this.displayRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Running' || d === 'Resting'));
-    this.displayResting$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
-    this.displaySessionSummary$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'SessionSummary'));
-    this.displaySessionOverview$ = this.store.select(s => s.train.hang).pipe(
-      map(h => h.settings.autoStart && h.display === 'Running' || h.display === 'Resting')
-    );
-    // dialog data
-    this.disableRunning$ = this.store.select(s => s.train.hang.display).pipe(map(d => d === 'Resting'));
-    this.playButtonText$ = this.store.select(selectPlayButtonText);
-    this.settings$ = this.store.select(s => s.train.hang.settings);
-    this.runningHang$ = this.store.select(s => s.train.hang.runningHang);
-    this.runningRest$ = this.store.select(s => s.train.hang.resting);
-    this.session$ = this.store.select(s => s.train.hang.currentSession);
-  }
+  constructor(private store: Store<AppState>) { }
 
   onPlayButtonClick() {
     this.store.dispatch(new StartHangAction({ showCountdown: true }));

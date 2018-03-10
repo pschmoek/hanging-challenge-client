@@ -7,7 +7,7 @@ import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 import { map, mergeMap, takeUntil, takeWhile, withLatestFrom } from 'rxjs/operators';
 
-import { TrainState } from '../reducers/index';
+import { AppState } from '../reducers/index';
 import {
   StartRestAction,
   START_REST,
@@ -58,7 +58,7 @@ export class RestEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<TrainState>
+    private store: Store<AppState>
   ) { }
 
 }
