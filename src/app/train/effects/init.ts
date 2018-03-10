@@ -4,11 +4,8 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { RouterNavigationAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { mergeMap, map, filter, concat } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 
-import { TrainState } from '../reducers/index';
 import { LoadTodaysHangsAction, LoadTodaysHangsSuccessAction } from '../actions/hang';
 import { HangService } from '../../core/services/hang/hang.service';
 
@@ -34,8 +31,7 @@ export class InitEffect {
 
   constructor(
     private actions$: Actions,
-    private hangService: HangService,
-    private store: Store<TrainState>
+    private hangService: HangService
   ) { }
 
 }

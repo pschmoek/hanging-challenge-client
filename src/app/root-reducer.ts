@@ -2,9 +2,9 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { HttpHeaders } from '@angular/common/http';
 
-import { RouterStateUrl } from './app-routing.module';
 import * as fromAuth from './core/reducers/auth';
 import { dashboardReducer, DashboardState } from './core/reducers/dashboard';
+import { RouterStateUrl } from './app-routing.module';
 
 export interface AppState {
   auth: fromAuth.State;

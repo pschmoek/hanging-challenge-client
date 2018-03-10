@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header-nav-logo',
@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderNavLogoComponent {
 
-  @Input() text: string;
-  @Input() color: string;
-  @Input() isActive: boolean;
+  @Input() text: string|undefined;
+  @Input() color: string|undefined;
+  @Input() isActive: string|undefined;
 
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core/';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { first, map, switchMap, finalize, filter } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
 import { Hang } from './hang';
-import { selectHttpHeaders, AppState } from '../../../root-reducer';
+import { AppState } from '../../../root-reducer';
 
 @Injectable()
 export class HangService {

@@ -1,13 +1,9 @@
 import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { tap, mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
-import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
-import { RouterNavigationAction } from '@ngrx/router-store';
 import { Router } from '@angular/router';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
-
 import {
   SaveCurrentHangSessionSuccessAction,
   DiscardCurrentHangSessionAction,
@@ -18,19 +14,15 @@ import {
 @Injectable()
 export class RouteToDashboardEffect {
 
-  @Effect()
+  @Effect({ dispatch: false })
   routeToDashboard$: Observable<Action> =
     this.actions$.ofType<SaveCurrentHangSessionSuccessAction|DiscardCurrentHangSessionAction>(
       SAVE_CURRENT_HANG_SESSION_SUCCESS,
       DISCARD_CURRENT_HANG_SESSION
     ).pipe(
-      tap(a => this.router.navigate([''])),
-      mergeMap(a => EmptyObservable.create())
+      tap(a => this.router.navigate(['']))
     );
 
-  constructor(
-    private actions$: Actions,
-    private router: Router
-  ) { }
+  constructor(private actions$: Actions, private router: Router) { }
 
 }

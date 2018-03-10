@@ -5,7 +5,6 @@ import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Observable } from 'rxjs/Observable';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { map, mergeMap, takeUntil, takeWhile, withLatestFrom } from 'rxjs/operators';
 
 import { TrainState } from '../reducers/index';

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, mergeMap, takeUntil, withLatestFrom, takeWhile, concat, delay } from 'rxjs/operators';
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
-import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
+import { mergeMap, takeUntil, withLatestFrom, concat, startWith, zip } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { empty } from 'rxjs/observable/empty';
+import { range } from 'rxjs/observable/range';
+import { interval } from 'rxjs/observable/interval';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
-import { RangeObservable } from 'rxjs/observable/RangeObservable';
 
 import {
   StartHangAction,
@@ -20,8 +20,6 @@ import {
   CountdownTimePastAction
 } from '../actions/hang';
 import { TrainState } from '../reducers/index';
-import { zip } from 'rxjs/operators/zip';
-import { startWith } from 'rxjs/operators/startWith';
 
 @Injectable()
 export class HangEffects {
@@ -34,20 +32,20 @@ export class HangEffects {
         const showCountdown = options[0].payload.showCountdown;
         const settings = options[1];
         const countdownSequence = showCountdown
-          ? RangeObservable.create(1, settings.countdown)
+          ? range(1, settings.countdown)
             .pipe(
               zip(
-                IntervalObservable.create(1000),
+                interval(1000),
                 t => new CountdownTimePastAction({ secondsLeft: settings.countdown - t })
               ),
               startWith(new CountdownTimePastAction({ secondsLeft: settings.countdown })),
             )
-          : EmptyObservable.create<Action>();
+          : empty<Action>();
 
-        const hangSequence = RangeObservable.create(1, settings.maxPerRepetition)
+        const hangSequence = range(1, settings.maxPerRepetition)
           .pipe(
             zip(
-              IntervalObservable.create(1000),
+              interval(1000),
               t => new HangTimePastAction(t)
             ),
             takeUntil(this.actions$.ofType(ROUTER_NAVIGATION)),
@@ -56,11 +54,11 @@ export class HangEffects {
               const isComplete = action.payload === settings.maxPerRepetition;
               if (isComplete) {
                 return settings.autoStart
-                  ? ArrayObservable.of<Action>(action, new StartRestAction())
-                  : ArrayObservable.of<Action>(action, new ShowSessionSummary());
+                  ? of<Action>(action, new StartRestAction())
+                  : of<Action>(action, new ShowSessionSummary());
               }
 
-              return ArrayObservable.of<Action>(action);
+              return of<Action>(action);
             }),
             startWith<Action>(new HangTimePastAction(0))
           );

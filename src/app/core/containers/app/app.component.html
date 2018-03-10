@@ -11,5 +11,6 @@
 
 <app-splash
   *ngIf="showSplash$ | async"
-  [showFacebookLogin]="showFacebookLogin$ | async">
+  [showFacebookLogin]="showFacebookLogin$ | async"
+  [message]="splashMessage$ | async">
 </app-splash>

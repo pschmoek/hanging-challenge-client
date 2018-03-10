@@ -34,7 +34,13 @@ export const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, HttpClientModule, EffectsModule.forFeature([AuthEffect, InitDashboardEffect]), NgxChartsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    EffectsModule.forFeature([AuthEffect, InitDashboardEffect]),
+    NgxChartsModule
+  ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
   providers: [FacebookLoginService, AuthService, UserService, HangService]

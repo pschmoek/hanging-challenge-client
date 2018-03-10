@@ -1,6 +1,9 @@
 <main class="container">
 
+  <p *ngIf="showLoadingNotification$ | async" class="lead">Loading todays hang time. Please wait.</p>
+
   <app-todays-hang-time-section
+    *ngIf="showChart$ | async"
     [hangCount]="todaysHangCount$ | async"
     [hangTime]="todaysHangTime$ | async"
     [hangSeries]="todaysHangSeries$ | async">
