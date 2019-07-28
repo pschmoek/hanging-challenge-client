@@ -64,8 +64,8 @@ export const initialState: HangState = {
     autoStart: true,
     countdown: 5,
     endTimeBuffer: 3,
-    maxPerRepetition: 5, // 60
-    pauseTime: 5 // 60
+    maxPerRepetition: 60,
+    pauseTime: 60
   },
   runningHang: {
     start: null,
