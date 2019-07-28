@@ -34,10 +34,10 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.3",
+    "@angular/cli": "^8.1.2",
     "@angular/compiler-cli": "^5.2.8",
     "@angular/language-service": "^5.2.8",
-    "@types/facebook-js-sdk": "^2.8.3",
+    "@types/facebook-js-sdk": "^3.3.0",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/lodash": "^4.14.87",
