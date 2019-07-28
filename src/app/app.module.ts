@@ -16,7 +16,14 @@ import { rootReducer } from './root-reducer';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot(rootReducer),
+    StoreModule.forRoot(rootReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      }
+    }),
     EffectsModule.forRoot([]),
     !environment.production
       ? StoreDevtoolsModule.instrument()

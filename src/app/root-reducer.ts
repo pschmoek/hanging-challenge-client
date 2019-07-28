@@ -4,17 +4,16 @@ import { HttpHeaders } from '@angular/common/http';
 
 import * as fromAuth from './core/reducers/auth';
 import { dashboardReducer, DashboardState } from './core/reducers/dashboard';
-import { RouterStateUrl } from './app-routing.module';
 
 export interface AppState {
   auth: fromAuth.State;
-  router: RouterReducerState<RouterStateUrl>;
+  router: RouterReducerState;
   dashboard: DashboardState;
 }
 
 export const rootReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.reducer as ActionReducer<fromAuth.State>,
-  router: routerReducer as ActionReducer<RouterReducerState<RouterStateUrl>>,
+  router: routerReducer as ActionReducer<RouterReducerState>,
   dashboard: dashboardReducer as ActionReducer<DashboardState>
 };
 
