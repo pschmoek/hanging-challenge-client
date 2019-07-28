@@ -6,11 +6,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json -o",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "test": "ng test",
     "lint": "ng lint --type-check",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --prod --aot"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
