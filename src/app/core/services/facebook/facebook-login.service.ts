@@ -13,12 +13,12 @@ export class FacebookLoginService {
   ) { }
 
   init() {
-    FB.init({ appId: environment.facebookAppId, cookie: true, version: 'v2.11', xfbml: false });
+    FB.init({ appId: environment.facebookAppId, cookie: true, version: 'v3.3', xfbml: false });
     FB.getLoginStatus(() => {});
     FB.Event.subscribe('auth.statusChange', this.onLoginStatus.bind(this));
   }
 
-  private onLoginStatus(resp: fb.AuthResponse) {
+  private onLoginStatus(resp: fb.StatusResponse) {
     if (resp.status === 'connected' && resp.authResponse) {
       this.store.dispatch(new FacebookTokenReceived(resp.authResponse.accessToken));
     } else {

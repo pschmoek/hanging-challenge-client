@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { Effect } from '@ngrx/effects';
 
@@ -15,8 +15,9 @@ import { HangSession } from '../services/hang-session';
 export class SaveSessionEffect {
 
   @Effect()
-  save$: Observable<Action> = this.actions$.ofType<SaveCurrentHangSessionAction>(SAVE_CURRENT_HANG_SESSION)
+  save$: Observable<Action> = this.actions$
     .pipe(
+      ofType<SaveCurrentHangSessionAction>(SAVE_CURRENT_HANG_SESSION),
       withLatestFrom(this.store.select(s => s.train.hang)),
       map(([action, hangState]) => {
         const hangSession: HangSession = {

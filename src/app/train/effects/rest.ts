@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store, Action } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
-import { Observable } from 'rxjs/Observable';
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
-import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
+import { Observable, interval, of } from 'rxjs';
 import { map, mergeMap, takeUntil, takeWhile, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from '../reducers/index';
@@ -23,36 +21,37 @@ import {
 export class RestEffects {
 
   @Effect()
-  rest$: Observable<Action> = this.actions$.ofType<StartRestAction>(START_REST)
-    .pipe(
-      withLatestFrom(this.store.select(s => s.train.hang.settings)),
-      map(v => v[1]),
-      mergeMap(settings => {
-        return IntervalObservable.create(1000)
-          .pipe(
-            map(t => settings.pauseTime - t - 1),
-            takeUntil(this.actions$.ofType(ROUTER_NAVIGATION)),
-            takeUntil(this.actions$.ofType(STOP_SESSION)),
-            takeWhile(v => v >= 0),
-            mergeMap(t => {
-              if (t === 0) {
-                return ArrayObservable.of<Action>(new RestTimePastAction(t), new StartHangAction({ showCountdown: false }));
-              }
+  rest$: Observable<Action> = this.actions$.pipe(
+    ofType<StartRestAction>(START_REST),
+    withLatestFrom(this.store.select(s => s.train.hang.settings)),
+    map(v => v[1]),
+    mergeMap(settings => {
+      return interval(1000)
+        .pipe(
+          map(t => settings.pauseTime - t - 1),
+          takeUntil(this.actions$.pipe(ofType(ROUTER_NAVIGATION))),
+          takeUntil(this.actions$.pipe(ofType(STOP_SESSION))),
+          takeWhile(v => v >= 0),
+          mergeMap(t => {
+            if (t === 0) {
+              return of<Action>(new RestTimePastAction(t), new StartHangAction({ showCountdown: false }));
+            }
 
-              return ArrayObservable.of<Action>(new RestTimePastAction(t));
-            })
-          );
-      })
-    );
+            return of<Action>(new RestTimePastAction(t));
+          })
+        );
+    })
+  );
 
   @Effect()
-  startRestAfterHangStop$: Observable<Action> = this.actions$.ofType<StopHangAction>(STOP_HANG)
+  startRestAfterHangStop$: Observable<Action> = this.actions$
     .pipe(
+      ofType<StopHangAction>(STOP_HANG),
       withLatestFrom(this.store.select(s => s.train.hang.settings)),
       map(v => v[1]),
       mergeMap(settings => settings.autoStart
-        ? ArrayObservable.of<Action>(new StartRestAction())
-        : ArrayObservable.of<Action>(new ShowSessionSummary())
+        ? of<Action>(new StartRestAction())
+        : of<Action>(new ShowSessionSummary())
       )
     );
 

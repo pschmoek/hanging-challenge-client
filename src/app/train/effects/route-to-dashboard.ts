@@ -1,6 +1,6 @@
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -16,10 +16,11 @@ export class RouteToDashboardEffect {
 
   @Effect({ dispatch: false })
   routeToDashboard$: Observable<Action> =
-    this.actions$.ofType<SaveCurrentHangSessionSuccessAction|DiscardCurrentHangSessionAction>(
-      SAVE_CURRENT_HANG_SESSION_SUCCESS,
-      DISCARD_CURRENT_HANG_SESSION
-    ).pipe(
+    this.actions$.pipe(
+      ofType<SaveCurrentHangSessionSuccessAction|DiscardCurrentHangSessionAction>(
+        SAVE_CURRENT_HANG_SESSION_SUCCESS,
+        DISCARD_CURRENT_HANG_SESSION
+      ),
       tap(a => this.router.navigate(['']))
     );
 

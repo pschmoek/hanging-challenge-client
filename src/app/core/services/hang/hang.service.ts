@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core/';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { first, map, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HangSession } from './hang-session';
-
-import { Hang } from './hang';
 import { AppState } from '../../../root-reducer';
 
 @Injectable()
