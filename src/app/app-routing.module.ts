@@ -35,8 +35,8 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
-  { path: 'analyze', loadChildren: './analyze/analyze.module#AnalyzeModule' },
-  { path: 'train', loadChildren: './train/train.module#TrainModule' }
+  { path: 'analyze', loadChildren: () => import('./analyze/analyze.module').then(m => m.AnalyzeModule) },
+  { path: 'train', loadChildren: () => import('./train/train.module').then(m => m.TrainModule) }
 ];
 
 @NgModule({
