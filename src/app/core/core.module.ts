@@ -14,8 +14,6 @@ import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { AuthEffect } from './effects/auth';
-import { RingLogoComponent } from './presenters/ring-logo/ring-logo.component';
-import { AnalyzeLogoComponent } from './presenters/analyze-logo/analyze-logo.component';
 import { HeaderNavLogoComponent } from './presenters/header-nav-logo/header-nav-logo.component';
 import { HangService } from './services/hang/hang.service';
 import { InitDashboardEffect } from './effects/init-dashboard';
@@ -27,8 +25,6 @@ export const COMPONENTS = [
   SplashComponent,
   FacebookLoginButtonComponent,
   DashboardComponent,
-  RingLogoComponent,
-  AnalyzeLogoComponent,
   HeaderNavLogoComponent,
   TodaysHangTimeSectionComponent
 ];

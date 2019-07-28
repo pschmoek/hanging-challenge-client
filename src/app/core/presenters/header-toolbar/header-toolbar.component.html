@@ -9,16 +9,14 @@
       [isActive]="currentUrl === '/train'"
       (click)="trainClick.emit()"
       color="lightgreen"
-      text="Train">
-      <app-ring-logo></app-ring-logo>      
+      text="Train">    
     </app-header-nav-logo>
 
     <app-header-nav-logo
       [isActive]="currentUrl === '/analyze'"
       (click)="analyzeClick.emit()"
       color="lightblue"
-      text="Analyze">
-      <app-analyze-logo></app-analyze-logo>      
+      text="Analyze">   
     </app-header-nav-logo>
 
     <span class=grow></span>
