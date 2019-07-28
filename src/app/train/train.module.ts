@@ -12,13 +12,13 @@ import { trainReducers } from './reducers/index';
 import { SharedModule } from '../shared/shared.module';
 import { HangEffects } from './effects/hang';
 import { RestEffects } from './effects/rest';
-import { InitEffect } from './effects/init';
 import { SessionSummaryComponent } from './presenters/session-summary/session-summary.component';
 import { SaveSessionEffect } from './effects/save-session';
 import { SessionOverviewComponent } from './presenters/session-overview/session-overview.component';
 import { HangRunComponent } from './presenters/hang-run/hang-run.component';
 import { SessionToolbarComponent } from './presenters/session-toolbar/session-toolbar.component';
 import { RouteToDashboardEffect } from './effects/route-to-dashboard';
+import { HangSessionService } from './services/hang-session.service';
 
 export const COMPONENTS = [
   TrainComponent,
@@ -39,8 +39,8 @@ export const COMPONENTS = [
     TrainRoutingModule,
     ReactiveFormsModule,
     StoreModule.forFeature('train', trainReducers),
-    EffectsModule.forFeature([HangEffects, RestEffects, InitEffect, SaveSessionEffect, RouteToDashboardEffect])
+    EffectsModule.forFeature([HangEffects, RestEffects, SaveSessionEffect, RouteToDashboardEffect])
   ],
-  providers: []
+  providers: [HangSessionService]
 })
 export class TrainModule { }

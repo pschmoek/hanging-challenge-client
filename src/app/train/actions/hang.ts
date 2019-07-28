@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { HangActivitySettings } from '../reducers/hang';
 import { Hang } from '../../core/services/hang/hang';
+import { HangSession } from '../services/hang-session';
 
 export const LOAD_TODAYS_HANGS = '[Hang] Load Todays Hangs';
 export const LOAD_TODAYS_HANGS_SUCCESS = '[Hang] Load Todays Hangs Success';
@@ -37,7 +38,7 @@ export class SaveCurrentHangSessionAction implements Action {
 export class SaveCurrentHangSessionSuccessAction implements Action {
   readonly type = SAVE_CURRENT_HANG_SESSION_SUCCESS;
 
-  constructor(public payload: Hang[]) { }
+  constructor(public payload: HangSession) { }
 }
 
 export class DiscardCurrentHangSessionAction implements Action {
